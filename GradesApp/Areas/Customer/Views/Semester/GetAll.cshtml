@@ -1,0 +1,9 @@
+﻿@model List<Semester>
+
+<div class="container">
+    @using (Html.BeginForm("GetSemester", "SemesterController", FormMethod.Post))
+    {
+        @Html.DropDownList("SelectedSemester", ViewBag.SemesterList as SelectList, "Select Semester", new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    }
+</div>

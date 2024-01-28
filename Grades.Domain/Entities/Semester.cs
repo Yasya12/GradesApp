@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using Grades.Domain.Entities;
 
 namespace Grades.Persistence.Repositories
 {
-	public class Semester
+	public class Semester : BaseEntity
 	{
 		private int number;
 		private int startYear;

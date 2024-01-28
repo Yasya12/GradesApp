@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Faculty>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row pt-4 pb-4">
+            <div class="col-4">
+                <h2 class="text-primary">
+                    Faculty List
+                </h2>
+            </div>
+            <div class="col-2 text-end">
+                <a asp-area="Customer" asp-controller="Faculty" asp-action="Upsert" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Create Faculty
+                </a>
+            </div>
+        </div>
+        <ul>
+            @foreach (var faculty in Model)
+            {
+                <li>@faculty.Name</li>
+            }
+        </ul>
+    </div>
+</body>
+</html>

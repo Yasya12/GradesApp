@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Semester>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semester List</title>
+</head>
+<body>
+    <div class="container">
+       
+        <form>
+            <label for="semester">Semester:</label>
+            <select name="cars" id="cars">
+                @foreach (var semester in Model)
+                {
+                    <option value="@semester.Number">@semester.Number</option>
+                }
+            </select>
+            <label for="start year">Start year:</label>
+            <select name="year" id="year">
+                @{
+                    var uniqueYears = Model.Select(s => s.StartYear).Distinct();
+
+                    foreach (var year in uniqueYears)
+                    {
+                        <option value="@year">@year</option>
+                    }
+                }
+            </select>
+        </form>
+    </div>
+</body>
+</html>
