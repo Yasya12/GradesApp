@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grades.Application.Features.FacultyFeatures.Queries
+namespace Grades.Application.Features.FacultyFeatures.Queries.GetAllFacultyQuery
 {
     public class GetAllFacultyQueryHandler : IRequestHandler<GetAllFacultyQuery, IEnumerable<Faculty>>
     {

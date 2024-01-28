@@ -20,11 +20,31 @@
             </div>
         </div>
         <ul>
-            @foreach (var faculty in Model)
-            {
-                <li>@faculty.Name</li>
-            }
+            <ul>
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <a asp-area="Customer" asp-controller="Faculty" asp-action="Upsert" asp-route-id="@item.Id" class="custom-link">@item.Name</a>
+                        </li>
+                    }
+                </ul>
+            </ul>
+
+
         </ul>
     </div>
 </body>
 </html>
+
+<style>
+    .custom-link {
+        color: black;
+        text-decoration: none; 
+        transition: color 0.3s; 
+    }
+
+    .custom-link:hover {
+         color: blue; 
+     }
+</style>
