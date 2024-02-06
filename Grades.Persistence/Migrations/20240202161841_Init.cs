@@ -19,7 +19,8 @@ namespace Grades.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Abbreviation = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Abbreviation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DefaultValue = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +33,8 @@ namespace Grades.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false),
-                    StartYear = table.Column<int>(type: "int", nullable: false)
+                    StartYear = table.Column<int>(type: "int", nullable: false),
+                    DefaultValue = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,20 +43,20 @@ namespace Grades.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Faculties",
-                columns: new[] { "Id", "Abbreviation", "Name" },
+                columns: new[] { "Id", "Abbreviation", "DefaultValue", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("4dd40723-c6d6-45fa-8853-7f1568968a98"), "F1", "Faculty 1" },
-                    { new Guid("5414e568-334f-4bad-adaa-eca57f177b79"), "F2", "Faculty 2" }
+                    { new Guid("eedaa917-8ceb-46b5-b766-f947a503bbf2"), "F1", false, "Faculty 1" },
+                    { new Guid("f70c779c-cc69-4699-af24-d59f5a410680"), "F2", false, "Faculty 2" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Semesters",
-                columns: new[] { "Id", "Number", "StartYear" },
+                columns: new[] { "Id", "DefaultValue", "Number", "StartYear" },
                 values: new object[,]
                 {
-                    { new Guid("98ef7c6b-e74b-4548-837a-446c88d0bd23"), 2, 2022 },
-                    { new Guid("f9b563ca-c22a-493f-b2f7-3d774452d240"), 1, 2022 }
+                    { new Guid("6ecdc5f3-cbb4-494d-a735-712d7e9ab48e"), false, 2, 2022 },
+                    { new Guid("b9e1f4de-6164-4542-8b6e-94db86a269ee"), false, 1, 2022 }
                 });
         }
 

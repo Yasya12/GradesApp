@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Semester>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semester List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row pt-4 pb-4">
+            <div class="col-8">
+                <h3>Select a semester (this will be displayed by default for all users)</h3>
+            </div>
+            <div class="col-4 text-end">
+                <a asp-area="Customer" asp-controller="Settings" asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Create New Study Year
+                </a>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <form asp-area="Customer" asp-controller="Settings" asp-action="Set" method="post">
+                <div class="col-4 mb-4">
+                    <label for="semester">Semester:</label>
+                    <select name="semester" id="semester" class="form-control">
+                    @foreach (var semester in Model)
+                    {
+                            if (semester.DefaultValue)
+                            {
+                                <option value="@semester.Number">@semester.Number.ToString()</option>
+                            }
+                    }
+                    @foreach (var semester in Model)
+                    {
+                        if (semester.DefaultValue)
+                        {
+                            continue;
+                        }
+                        <option value="@semester.Number">@semester.Number</option>
+                    }  
+                </select>
+                </div>
+                <div class="col-4 mb-4">
+                    <label for="start year">Start year:</label>
+                    <select name="year" id="year" class="form-control">
+                        @{
+                            var uniqueYears = Model.Select(s => s.StartYear).Distinct();
+
+                            foreach (var year in uniqueYears)
+                            {
+                                <option value="@year">@year</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> Set As Default
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

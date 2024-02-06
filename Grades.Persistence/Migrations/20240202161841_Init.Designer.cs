@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grades.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240124210105_Init")]
+    [Migration("20240202161841_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -35,6 +35,9 @@ namespace Grades.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("DefaultValue")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -46,14 +49,16 @@ namespace Grades.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4dd40723-c6d6-45fa-8853-7f1568968a98"),
+                            Id = new Guid("eedaa917-8ceb-46b5-b766-f947a503bbf2"),
                             Abbreviation = "F1",
+                            DefaultValue = false,
                             Name = "Faculty 1"
                         },
                         new
                         {
-                            Id = new Guid("5414e568-334f-4bad-adaa-eca57f177b79"),
+                            Id = new Guid("f70c779c-cc69-4699-af24-d59f5a410680"),
                             Abbreviation = "F2",
+                            DefaultValue = false,
                             Name = "Faculty 2"
                         });
                 });
@@ -63,6 +68,9 @@ namespace Grades.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("DefaultValue")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Number")
                         .HasColumnType("int");
@@ -77,13 +85,15 @@ namespace Grades.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f9b563ca-c22a-493f-b2f7-3d774452d240"),
+                            Id = new Guid("b9e1f4de-6164-4542-8b6e-94db86a269ee"),
+                            DefaultValue = false,
                             Number = 1,
                             StartYear = 2022
                         },
                         new
                         {
-                            Id = new Guid("98ef7c6b-e74b-4548-837a-446c88d0bd23"),
+                            Id = new Guid("6ecdc5f3-cbb4-494d-a735-712d7e9ab48e"),
+                            DefaultValue = false,
                             Number = 2,
                             StartYear = 2022
                         });
