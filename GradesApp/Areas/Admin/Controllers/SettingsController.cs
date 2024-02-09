@@ -8,9 +8,9 @@ using Grades.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GradesApp.Areas.Customer.Controllers
+namespace GradesApp.Areas.Admin.Controllers
 {
-    [Area("Customer")]
+    [Area("Admin")]
     public class SettingsController : Controller
     {
         protected readonly IMediator _mediator;

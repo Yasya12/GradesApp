@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Grades.Application\Grades.Application.csproj" />
     <ProjectReference Include="..\Grades.Domain\Grades.Domain.csproj" />
     <ProjectReference Include="..\Grades.Persistence\Grades.Persistence.csproj" />

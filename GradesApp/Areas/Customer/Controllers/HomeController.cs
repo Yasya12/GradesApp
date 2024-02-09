@@ -20,16 +20,6 @@ namespace GradesApp.Areas.Customer.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> GetAll()
-        {
-            var semesterList = await _mediator.Send<IEnumerable<Semester>>(new GetAllSemesterQuery());
-
-            return View(semesterList);
-        }
-
-
-
-
         public IActionResult Index()
         {
             return View();

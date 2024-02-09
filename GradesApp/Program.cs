@@ -3,19 +3,21 @@ using Grades.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Grades.Persistence.Context;
+using Grades.Domain.Entities.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.AddRazorPages();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,20 +32,20 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapRazorPages();
 /*app.MapControllerRoute(
 	name: "default",
 	pattern: "{area=Customer}/{controller=Home}/{action=GetAll}/{id?}");*/
 
-app.MapControllerRoute(
+/*app.MapControllerRoute(
     name: "areaRoute",
-    pattern: "{area:exists}/{controller=Home}/{action=GetAll}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=GetAll}/{id?}");*/
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Customer}/{controller=Faculty}/{action=GetAllFaculties}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();
