@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Grades.Domain\Grades.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\UserFeatures\GetUserQuery\" />
+  </ItemGroup>
+
 </Project>

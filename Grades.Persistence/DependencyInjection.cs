@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Grades.Application.IRepositories;
 using Grades.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace Grades.Persistence
 {
@@ -16,6 +17,11 @@ namespace Grades.Persistence
 
 			services.AddScoped<IFacultyRepository, FacultyRepository>();
 			services.AddScoped<ISemesterRepository, SemesterRepository>();
-		}
-	}
+            services.AddScoped<IUserRepository, UserRepository>();
+            /*services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();*/
+
+        }
+    }
 }

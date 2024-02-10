@@ -4,9 +4,13 @@ using Grades.Application.Features.FacultyFeatures.Commands.UpdateFacultyCommand;
 using Grades.Application.Features.FacultyFeatures.Queries;
 using Grades.Application.Features.FacultyFeatures.Queries.GetAllFacultyQuery;
 using Grades.Application.Features.FacultyFeatures.Queries.GetFacultyQuery;
+using Grades.Application.Features.UserFeatures.GetAllUserQuery;
 using Grades.Domain.Entities;
+using Grades.Domain.Entities.Utility;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GradesApp.Areas.Admin.Controllers
 {
@@ -14,17 +18,35 @@ namespace GradesApp.Areas.Admin.Controllers
     public class FacultyController : Controller
     {
         protected readonly IMediator _mediator;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FacultyController(IMediator mediator)
+
+        public FacultyController(IMediator mediator, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _mediator = mediator;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> GetAllFaculties()
         {
-            var facultyList = await _mediator.Send<IEnumerable<Faculty>>(new GetAllFacultyQuery());
+            var userList = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
+            return View(userList);
 
-            return View(facultyList);
+            /*var allRoles = await _roleManager.Roles.ToListAsync();
+            var facultyRoleId = allRoles.FirstOrDefault(r => r.Name == "Faculty")?.Id;
+
+            if (facultyRoleId != null)
+            {
+                var facultyList = await _userManager.GetUsersInRoleAsync("Faculty");
+                return View(facultyList);
+
+            }
+            else
+            {
+                return View(userList);
+            }*/
         }
 
         public async Task<IActionResult> Upsert(Guid? id)
