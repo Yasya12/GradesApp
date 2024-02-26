@@ -2,7 +2,7 @@
 using Grades.Domain.Entities;
 using MediatR;
 
-namespace Grades.Application.Features.UserFeatures.GetAllUserQuery
+namespace Grades.Application.Features.UserFeatures.Queries.GetAllUserQuery
 {
     public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, IEnumerable<ApplicationUser>>
     {

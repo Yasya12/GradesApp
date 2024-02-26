@@ -1,5 +1,6 @@
 ﻿using Grades.Application.IRepositories;
 using Grades.Domain.Entities;
+using Grades.Domain.Entities.Utility;
 using Grades.Persistence.Context;
 using Inspector.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -15,8 +16,8 @@ namespace Grades.Persistence.Repositories
     public class UserRepository : IUserRepository
     {
         protected readonly ApplicationDbContext Context;
-        private readonly UserManager<IdentityUser> _userManager;
-        public UserRepository(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UserRepository(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             Context = context;
             _userManager = userManager;
@@ -24,12 +25,40 @@ namespace Grades.Persistence.Repositories
 
         public async Task CreateAsync(ApplicationUser entity)
         {
+
+            entity.Email = entity.Name.ToLower() + "@gmail.com";
+            entity.UserName = entity.Email;
+            entity.NormalizedUserName = entity.Email.ToUpper();
+            entity.NormalizedEmail = entity.NormalizedUserName;
+            entity.EmailConfirmed = true;
+
+            string password = $"{char.ToUpper(entity.Name[0])}{entity.Name.Substring(1).ToLower()}123!";
+            entity.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, password);
+
+
             await Context.AddAsync(entity);
+            await Context.SaveChangesAsync();
+            await _userManager.AddToRoleAsync(entity, SD.Role_Faculty);
+
         }
 
         public async Task UpdateAsync(ApplicationUser entity)
         {
-            Context.Update(entity);
+            var existingUser = await Context.Users.FindAsync(entity.Id);
+            if (existingUser != null)
+            {
+                // Оновлюємо дані користувача
+                existingUser.Name = entity.Name;
+                existingUser.Abbreviation = entity.Abbreviation;
+                // Оновлюємо пароль, якщо потрібно
+                /*string password = $"{char.ToUpper(entity.Name[0])}{entity.Name.Substring(1).ToLower()}123!";
+                existingUser.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, password);*/
+                await Context.SaveChangesAsync();
+            }
+            else
+            {
+                // Обробка помилки: користувач не знайдений
+            }
         }
 
         public async Task DeleteAsync(ApplicationUser entity)

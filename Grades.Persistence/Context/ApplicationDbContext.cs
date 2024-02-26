@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Grades.Persistence.Context
 {
-	public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
@@ -19,6 +19,10 @@ namespace Grades.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+           .HasDiscriminator<string>("Discriminator")
+           .HasValue<ApplicationUser>("ApplicationUser");
 
             modelBuilder.Entity<Faculty>().HasData(
                 new Faculty { Id = Guid.NewGuid(), Name = "Faculty 1", Abbreviation = "F1" },

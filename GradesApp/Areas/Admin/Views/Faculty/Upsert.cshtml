@@ -1,9 +1,9 @@
-﻿@model Faculty
+﻿@model ApplicationUser
 
 <form method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4 col-6 mx-auto">
         <div class="row pb-2 ">
-            <h2 class="text-primary">@(Model.Id != Guid.Empty ? "Update" : "Create")</h2>
+            <h2 class="text-primary">@(Model.Id != null ? "Update" : "Create")</h2>
             <hr />
         </div>
 
@@ -20,7 +20,7 @@
 
         <div class="row">
             <div class="col-6 col-md-3">
-                @if (Model.Id != Guid.Empty)
+                @if (Model.Id != null)
                 {
                     <button type="submit" class="btn btn-primary form-control">Update</button>
                 }

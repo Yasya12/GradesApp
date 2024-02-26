@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grades.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240209143647_Init")]
+    [Migration("20240226013047_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,159 +25,14 @@ namespace Grades.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Grades.Domain.Entities.Faculty", b =>
+            modelBuilder.Entity("Grades.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Abbreviation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("DefaultValue")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Faculties");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("433d10c0-4cb0-4e76-acce-6f339fd68b0a"),
-                            Abbreviation = "F1",
-                            DefaultValue = false,
-                            Name = "Faculty 1"
-                        },
-                        new
-                        {
-                            Id = new Guid("e3c41b95-29ed-4ca6-bec2-7a2316d59c73"),
-                            Abbreviation = "F2",
-                            DefaultValue = false,
-                            Name = "Faculty 2"
-                        });
-                });
-
-            modelBuilder.Entity("Grades.Persistence.Repositories.Semester", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("DefaultValue")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StartYear")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Semesters");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ff01bdc2-fb63-4667-bd69-354b39220719"),
-                            DefaultValue = false,
-                            Number = 1,
-                            StartYear = 2022
-                        },
-                        new
-                        {
-                            Id = new Guid("f52cff14-0856-4ad3-a31d-52c685d956ce"),
-                            DefaultValue = false,
-                            Number = 2,
-                            StartYear = 2022
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            ConcurrencyStamp = "aa1e8969-8b00-48fb-9c7d-7cb2ce78b7ce",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            ConcurrencyStamp = "1d72c196-052d-46f7-b46a-3d458b52f879",
-                            Name = "Faculty",
-                            NormalizedName = "FACULTY"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            ConcurrencyStamp = "7ef356f6-289b-486c-b87d-48e71dbc758c",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -203,6 +58,10 @@ namespace Grades.Persistence.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -243,9 +102,230 @@ namespace Grades.Persistence.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
 
-                    b.UseTphMappingStrategy();
+                    b.HasData(
+                        new
+                        {
+                            Id = "49b754b0-8831-4b1a-a44f-8e18a0c2578e",
+                            Abbreviation = "A",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "54f6a7b9-8abc-4979-877b-167bdc78f810",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Admin",
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFRoKEak3Sa/2TTTMUPRHq2WzwmuIrfNqcmqhsSDMe8ygQYfmY1VbBQ9I8/YY8YkLg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "64e1b255-1e8e-4fec-8e87-f0332e95451b",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
+                            Abbreviation = "EC",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "650e82cc-2407-47d9-b2c6-63b894b1f82d",
+                            Email = "economy@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Economy Faculty",
+                            NormalizedEmail = "ECONOMY@GMAIL.COM",
+                            NormalizedUserName = "ECONOMY@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPAuxtZ3pL5avPXL1ZVaoRdH9FdN9mclehcr4eUXKfWm/UetlfnQV0ebztzARlZ/Pg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "12b0ab68-301d-44f9-923b-7307f0a07cdf",
+                            TwoFactorEnabled = false,
+                            UserName = "economy@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "7e7b3d2d-9a90-4f90-aa5f-2c33d830cf45",
+                            Abbreviation = "LF",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c6323186-e823-450e-8f4e-1474dc0ad462",
+                            Email = "law@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Law Faculty",
+                            NormalizedEmail = "LAW@GMAIL.COM",
+                            NormalizedUserName = "LAW@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKuD7olBx4Uhcpd022XLiH2S6hanXy31JwRFOa4PYCOIPzLHdHL6tYwjhkEnnD7b9A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ee0c28e5-8810-4e50-b705-c65944a57815",
+                            TwoFactorEnabled = false,
+                            UserName = "law@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "c8b05623-d42b-4a9f-947e-dcd54538ee1d",
+                            Abbreviation = "U",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "18e18446-bd5c-460d-86e3-e07fd45a5e4c",
+                            Email = "user@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "User",
+                            NormalizedEmail = "USER@GMAIL.COM",
+                            NormalizedUserName = "USER@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKuQMi3sFJVTNvvSi2F1EgD2VFw8xwB8DR/RhaOnTLtrYOKv+nOWNUlaOA1DbblQlw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "81ebc4eb-fb14-4faf-83d2-0040e0bf4f79",
+                            TwoFactorEnabled = false,
+                            UserName = "user@gmail.com"
+                        });
+                });
+
+            modelBuilder.Entity("Grades.Domain.Entities.Faculty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Abbreviation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DefaultValue")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Faculties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("af0ff420-7ce2-4084-828f-5e6ed8554d2a"),
+                            Abbreviation = "F1",
+                            DefaultValue = false,
+                            Name = "Faculty 1"
+                        },
+                        new
+                        {
+                            Id = new Guid("aa2bc4b7-141c-4ada-856b-a8536c26e746"),
+                            Abbreviation = "F2",
+                            DefaultValue = false,
+                            Name = "Faculty 2"
+                        });
+                });
+
+            modelBuilder.Entity("Grades.Persistence.Repositories.Semester", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("DefaultValue")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Semesters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("326a5546-03d0-41fb-9423-6ff6f91f3e74"),
+                            DefaultValue = false,
+                            Number = 1,
+                            StartYear = 2022
+                        },
+                        new
+                        {
+                            Id = new Guid("596d79d5-a191-4614-b92f-941bbd58b550"),
+                            DefaultValue = false,
+                            Number = 2,
+                            StartYear = 2022
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            ConcurrencyStamp = "4aa70efb-7589-46e7-8f97-8654ede86017",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            ConcurrencyStamp = "60322f30-8fc8-4635-9b42-4e9bd47bd43e",
+                            Name = "Faculty",
+                            NormalizedName = "FACULTY"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            ConcurrencyStamp = "c79353bf-d3f0-46fb-aafd-95c15e65c242",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -351,95 +431,6 @@ namespace Grades.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Grades.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Abbreviation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "49b754b0-8831-4b1a-a44f-8e18a0c2578e",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ebcf1dbc-57c4-4b24-8674-c822cf655187",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJV1hrF5P87WpDJtlw/kzTpcw4WrR3c/PTk5jV7jFgDyUnQOgpLkRcU4DvKtQfROiQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6900c5e-8120-4ca3-ae28-2d82bf96ef6b",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@gmail.com",
-                            Abbreviation = "A",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1bdb489-a827-462b-87fb-61f340ad5c1c",
-                            Email = "economy@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ECONOMY@GMAIL.COM",
-                            NormalizedUserName = "ECONOMY@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELA/KeqHL0tvVrXSHSw0zWZeE5Ikp6CMdk/a6rTHFzQXJnL/9XHQKMmKqArh4Ed7Sw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "45f51e02-50bf-46f1-9779-e12c5cd29949",
-                            TwoFactorEnabled = false,
-                            UserName = "economy@gmail.com",
-                            Abbreviation = "EC",
-                            Name = "Economy Faculty"
-                        },
-                        new
-                        {
-                            Id = "7e7b3d2d-9a90-4f90-aa5f-2c33d830cf45",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5333fa81-1792-435e-8da0-42bd85748c33",
-                            Email = "law@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "LAW@GMAIL.COM",
-                            NormalizedUserName = "LAW@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECxcQYpLSFlsinjbExCkLUmf8xV7kWRTcBU6+m17DWwWAiGDlbu2ZxsZhGpFfh7taw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1c679124-9165-4cd4-9314-ce06fa789706",
-                            TwoFactorEnabled = false,
-                            UserName = "law@gmail.com",
-                            Abbreviation = "LF",
-                            Name = "Law Faculty"
-                        },
-                        new
-                        {
-                            Id = "c8b05623-d42b-4a9f-947e-dcd54538ee1d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9dd40815-5f1b-421a-be73-26ea2704e978",
-                            Email = "user@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@GMAIL.COM",
-                            NormalizedUserName = "USER@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG/odGsHo2/wMqBFtgPgbVGtwgWsTL47K0cF3ePwwQuS9H5raya6C0Tt/S+pTcvZgQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "aac71581-98dc-42ab-b565-4b5006934c85",
-                            TwoFactorEnabled = false,
-                            UserName = "user@gmail.com",
-                            Abbreviation = "U",
-                            Name = "User"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -451,7 +442,7 @@ namespace Grades.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Grades.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -460,7 +451,7 @@ namespace Grades.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Grades.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -475,7 +466,7 @@ namespace Grades.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Grades.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -484,7 +475,7 @@ namespace Grades.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Grades.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

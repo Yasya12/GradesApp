@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Grades.Persistence.Context;
 using Grades.Domain.Entities.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Grades.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
 
 // Add services to the container.

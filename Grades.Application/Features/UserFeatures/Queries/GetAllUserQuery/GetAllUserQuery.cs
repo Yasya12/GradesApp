@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grades.Application.Features.UserFeatures.GetAllUserQuery
+namespace Grades.Application.Features.UserFeatures.Queries.GetAllUserQuery
 {
     public record GetAllUserQuery(string? includeProperties = null) : IRequest<IEnumerable<ApplicationUser>> { }
 }

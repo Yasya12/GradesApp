@@ -1,16 +1,14 @@
-﻿using Grades.Application.Features.FacultyFeatures.Commands.CreateFacultyCommand;
-using Grades.Application.Features.FacultyFeatures.Commands.SaveFacultyCommand;
-using Grades.Application.Features.FacultyFeatures.Commands.UpdateFacultyCommand;
-using Grades.Application.Features.FacultyFeatures.Queries;
-using Grades.Application.Features.FacultyFeatures.Queries.GetAllFacultyQuery;
-using Grades.Application.Features.FacultyFeatures.Queries.GetFacultyQuery;
-using Grades.Application.Features.UserFeatures.GetAllUserQuery;
+﻿using Grades.Application.Features.SemesterFeatures.Queries;
+using Grades.Application.Features.UserFeatures.Commands.CreateUserCommand;
+using Grades.Application.Features.UserFeatures.Commands.SaveUserCommand;
+using Grades.Application.Features.UserFeatures.Commands.UpdateUserCommand;
+using Grades.Application.Features.UserFeatures.Queries.GetAllUserQuery;
+using Grades.Application.Features.UserFeatures.Queries.GetUserQuery;
 using Grades.Domain.Entities;
-using Grades.Domain.Entities.Utility;
+using Grades.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GradesApp.Areas.Admin.Controllers
 {
@@ -33,56 +31,54 @@ namespace GradesApp.Areas.Admin.Controllers
         {
             var userList = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
             return View(userList);
-
-            /*var allRoles = await _roleManager.Roles.ToListAsync();
-            var facultyRoleId = allRoles.FirstOrDefault(r => r.Name == "Faculty")?.Id;
-
-            if (facultyRoleId != null)
-            {
-                var facultyList = await _userManager.GetUsersInRoleAsync("Faculty");
-                return View(facultyList);
-
-            }
-            else
-            {
-                return View(userList);
-            }*/
         }
 
-        public async Task<IActionResult> Upsert(Guid? id)
+        public async Task<IActionResult> Upsert(string? id)
         {
-            Faculty faculty = new Faculty();
+            ApplicationUser faculty = new ApplicationUser();
 
-            if (id == null || id == Guid.Empty)
+            if (string.IsNullOrEmpty(id))
             {
                 //create
+                faculty.Id = null;
                 return View(faculty);
             }
             else
             {
                 //update
-                faculty = await _mediator.Send<Faculty>(new GetFacultyQuery(id.Value));
+                if (Guid.TryParse(id, out Guid idGuid))
+                {
+                    faculty = await _mediator.Send<ApplicationUser>(new GetUserQuery(idGuid));
+                }
+                else
+                {
+                    Console.WriteLine("Неможливо перетворити рядок на тип Guid.");
+                }
                 return View(faculty);
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upsert(Faculty faculty)
+        public async Task<IActionResult> Upsert(ApplicationUser? faculty)
         {
+            var userList = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
+
+            bool isUserExit = userList.Any(i => i.Id == faculty.Id);
+
             if (ModelState.IsValid)
             {
-                if (faculty.Id == Guid.Empty)
+                if (!isUserExit)
                 {
-                    await _mediator.Send<Faculty>(new CreateFacultyCommand(faculty));
+                    await _mediator.Send<ApplicationUser>(new CreateUserCommand(faculty));
                     TempData["success"] = "Faculty created successfully";
                 }
                 else
-                {               
-                    await _mediator.Send<Faculty>(new UpdateFacultyCommand(faculty));
+                {
+                    await _mediator.Send<ApplicationUser>(new UpdateUserCommand(faculty));
                     TempData["success"] = "Faculty update successfully";
                 }
 
-                await _mediator.Send(new SaveFacultyCommand());
+                await _mediator.Send(new SaveUserCommand());
                 return RedirectToAction("GetAllFaculties");
             }
             else
