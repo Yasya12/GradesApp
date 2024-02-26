@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Grades.Domain.Entities;
+using Serilog;
 
 namespace GradesApp.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,13 @@ namespace GradesApp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -116,6 +119,8 @@ namespace GradesApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+                    Log.Information("{User} -  Logged in", currentUser);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -125,6 +130,8 @@ namespace GradesApp.Areas.Identity.Pages.Account
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
+                    var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+                    Log.Information("{User} -  Locked out", currentUser);
                     return RedirectToPage("./Lockout");
                 }
                 else

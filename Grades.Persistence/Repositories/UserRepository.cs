@@ -3,8 +3,10 @@ using Grades.Domain.Entities;
 using Grades.Domain.Entities.Utility;
 using Grades.Persistence.Context;
 using Inspector.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +19,16 @@ namespace Grades.Persistence.Repositories
     {
         protected readonly ApplicationDbContext Context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public UserRepository(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UserRepository(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             Context = context;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task CreateAsync(ApplicationUser entity)
         {
-
             entity.Email = entity.Name.ToLower() + "@gmail.com";
             entity.UserName = entity.Email;
             entity.NormalizedUserName = entity.Email.ToUpper();
@@ -40,6 +43,8 @@ namespace Grades.Persistence.Repositories
             await Context.SaveChangesAsync();
             await _userManager.AddToRoleAsync(entity, SD.Role_Faculty);
 
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Create", currentUser);
         }
 
         public async Task UpdateAsync(ApplicationUser entity)
@@ -59,11 +64,16 @@ namespace Grades.Persistence.Repositories
             {
                 // Обробка помилки: користувач не знайдений
             }
+
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Update", currentUser);
         }
 
         public async Task DeleteAsync(ApplicationUser entity)
         {
-            Context.Update(entity);
+            Context.Remove(entity);
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Delete", currentUser);
         }
 
         public async Task<ApplicationUser> GetAsync(Guid id, string? includeProperties = null)
@@ -77,12 +87,14 @@ namespace Grades.Persistence.Repositories
                     query = query.Include(includeProp);
                 }
             }
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Get", currentUser);
 
-            return await query.FirstOrDefaultAsync(x => x.Id == id.ToString());
+            return await query.FirstOrDefaultAsync(x => x.Id == id.ToString());     
         }
 
         public async Task<List<ApplicationUser>> GetAllAsync(string? includeProperties = null)
-        {
+        {           
             IQueryable<ApplicationUser> query = Context.Set<ApplicationUser>();
             if (!string.IsNullOrEmpty(includeProperties))
             {
@@ -91,18 +103,20 @@ namespace Grades.Persistence.Repositories
                     query = query.Include(includeProp);
                 }
             }
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  GetAll", currentUser);
             return await query.ToListAsync();
         }
         public async Task SaveAsync()
-        {
+        {            
             await Context.SaveChangesAsync();
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Save", currentUser);
         }
 
         public async Task UpdateUserRoleAsync(ApplicationUser entity, string role)
-        {
+        {            
             var user = await Context.Users.FirstOrDefaultAsync(x => x.Id == entity.Id);
-            //var user = await _userManager.FindByIdAsync(entity.Id);
-
 
             if ((await _userManager.GetRolesAsync(user)).Any())
             {
@@ -115,10 +129,14 @@ namespace Grades.Persistence.Repositories
             }
 
             await Context.SaveChangesAsync();
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Update Role", currentUser);
         }
 
         public async Task<IEnumerable<string?>> GetRolesAsync()
         {
+            var currentUser = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Log.Information("{User} -  Get Roles", currentUser);
             return Context.Roles.Select(x => x.Name).ToList();
         }
     }

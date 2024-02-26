@@ -1,13 +1,30 @@
 using Grades.Persistence;
 using Grades.Application;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Grades.Persistence.Context;
 using Grades.Domain.Entities.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Grades.Domain.Entities;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
+using Serilog.Sinks.File;
 
 var builder = WebApplication.CreateBuilder(args);
+
+/*string rootPath = AppDomain.CurrentDomain.BaseDirectory;
+string logFolderPath = Path.Combine(rootPath, "Logs");*/
+string logFolderPath = Path.Combine(AppContext.BaseDirectory, "Logs");
+string name = $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}";
+string logFileName = $"{name}.log";
+string logFilePath = Path.Combine(logFolderPath, logFileName);
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();

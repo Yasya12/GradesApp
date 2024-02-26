@@ -1,0 +1,7 @@
+{"@t":"2024-02-26T12:47:31.9858199Z","@m":"Get All faculties","@i":"2d7ea883","@tr":"6eea6e4a95b749a1ae27a08dc17122bc","@sp":"895130557137adc5"}
+{"@t":"2024-02-26T12:47:33.5661883Z","@m":"Get faculty with id: 4cf807fb-86e1-4cf8-a6c8-d54c43cc8b89","@i":"831676a0","@tr":"064b771c9a36813377c84592a9d67b15","@sp":"ddaf002c98bfffc8","UserId":"4cf807fb-86e1-4cf8-a6c8-d54c43cc8b89"}
+{"@t":"2024-02-26T12:47:37.9372475Z","@m":"Get All faculties","@i":"2d7ea883","@tr":"b6e8c829cf3ea25f11250c25b1ec9c3d","@sp":"217d6f5e015b0dc5"}
+{"@t":"2024-02-26T12:47:37.9534359Z","@m":"Updating user with name: \"Peww\"","@i":"2d8dffe8","@tr":"b6e8c829cf3ea25f11250c25b1ec9c3d","@sp":"217d6f5e015b0dc5","UserName":"Peww"}
+{"@t":"2024-02-26T12:47:38.0692733Z","@m":"Faculty updated successfully with name: \"Peww\"","@i":"7b523d52","@tr":"b6e8c829cf3ea25f11250c25b1ec9c3d","@sp":"217d6f5e015b0dc5","UserName":"Peww"}
+{"@t":"2024-02-26T12:47:38.0818689Z","@m":"Save all changes","@i":"f4dcc611","@tr":"b6e8c829cf3ea25f11250c25b1ec9c3d","@sp":"217d6f5e015b0dc5"}
+{"@t":"2024-02-26T12:47:38.1018398Z","@m":"Get All faculties","@i":"2d7ea883","@tr":"3ae3d694abd3a37f7f9dd6780b8d913b","@sp":"9d7acf30a7d730b8"}
