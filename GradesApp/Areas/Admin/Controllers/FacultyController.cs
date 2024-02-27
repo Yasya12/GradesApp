@@ -1,5 +1,6 @@
 ﻿using Grades.Application.Features.SemesterFeatures.Queries;
 using Grades.Application.Features.UserFeatures.Commands.CreateUserCommand;
+using Grades.Application.Features.UserFeatures.Commands.DeleteUserCommand;
 using Grades.Application.Features.UserFeatures.Commands.SaveUserCommand;
 using Grades.Application.Features.UserFeatures.Commands.UpdateUserCommand;
 using Grades.Application.Features.UserFeatures.Queries.GetAllUserQuery;
@@ -7,6 +8,7 @@ using Grades.Application.Features.UserFeatures.Queries.GetUserQuery;
 using Grades.Domain.Entities;
 using Grades.Persistence.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -84,6 +86,34 @@ namespace GradesApp.Areas.Admin.Controllers
             else
             {
                 return View(faculty);
+            }
+        }
+
+        public async Task<IActionResult> DeleteFaculty(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var userToBeDeleted = await _mediator.Send(new GetUserQuery(id.Value));
+
+                if (userToBeDeleted == null)
+                {
+                    return NotFound();
+                }
+
+                await _mediator.Send(new DeleteUserCommand(userToBeDeleted));
+                await _mediator.Send(new SaveUserCommand());
+
+                return RedirectToAction("GetAllFaculties"); 
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
             }
         }
     }

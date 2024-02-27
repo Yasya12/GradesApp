@@ -16,6 +16,9 @@ namespace Grades.Persistence.Context
 		public DbSet<Faculty> Faculties { get; set; }
 		public DbSet<Semester> Semesters { get; set; }
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Specialty> Specialty { get; set; }
+        public DbSet<Group> Group { get; set; }
+        public DbSet<Subject> Subject { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -23,6 +26,12 @@ namespace Grades.Persistence.Context
             modelBuilder.Entity<ApplicationUser>()
            .HasDiscriminator<string>("Discriminator")
            .HasValue<ApplicationUser>("ApplicationUser");
+
+            modelBuilder.Entity<Group>()
+            .HasOne(g => g.Specialty)
+            .WithMany()
+            .HasForeignKey(g => g.SpecialtyId)
+            .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Faculty>().HasData(
                 new Faculty { Id = Guid.NewGuid(), Name = "Faculty 1", Abbreviation = "F1" },
@@ -114,7 +123,48 @@ namespace Grades.Persistence.Context
                   new IdentityUserRole<string> { UserId = "7e7b3d2d-9a90-4f90-aa5f-2c33d830cf45", RoleId = "2" },
                   new IdentityUserRole<string> { UserId = "c8b05623-d42b-4a9f-947e-dcd54538ee1d", RoleId = "3" });
 
+                modelBuilder.Entity<Specialty>().HasData(
+                    new Specialty { Id = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc"), Name = "Комп'ютерні науки", Code = "122", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
+                    new Specialty { Id = new Guid("aee59fc8-92f4-4bb7-a0a7-4f812f74a4c2"), Name = "Економіка", Code = "051", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
+                    new Specialty { Id = new Guid("b6d2cb2f-8c5a-4ff4-98b2-728c3d0f2c8e"), Name = "Маркетинг", Code = "075", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" }
+                );
+
+            modelBuilder.Entity<Group>().HasData(
+                new Group
+                {
+                    Id = Guid.NewGuid(),
+                    GroupCode = "КН",
+                    SubgroupNumber = 1,
+                    AdmissionYear = 2021,
+                    SpecialtyId = new Guid ("e0d30663-5fc2-4aa4-bd12-9f325db791dc"),
+                    FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d"
+                },
+                new Group
+                {
+                    Id = Guid.NewGuid(),
+                    GroupCode = "ЕК",
+                    SubgroupNumber = 2,
+                    AdmissionYear = 2020,
+                    SpecialtyId = new Guid("aee59fc8-92f4-4bb7-a0a7-4f812f74a4c2") ,
+                    FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d"
+                },
+                new Group
+                {
+                    Id = Guid.NewGuid(),
+                    GroupCode = "КН",
+                    SubgroupNumber = 2,
+                    AdmissionYear = 2022,
+                    SpecialtyId = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc"),
+                    FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d"
+                }
+            );
+
+            modelBuilder.Entity<Subject>().HasData(
+                new Subject { Id = Guid.NewGuid(), Name = "Програмування на С#", Abbreviation = "ПР", Lecturer = "Клебан Ю.В.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
+                new Subject { Id = Guid.NewGuid(), Name = "Бази Даних", Abbreviation = "БД", Lecturer = "Коцюк Ю.А.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
+                new Subject { Id = Guid.NewGuid(), Name = "Алгоритми даних", Abbreviation = "АД", Lecturer = "Жуковський В.В.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" }
+            );
 
         }
-	}
+    }
 }

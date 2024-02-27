@@ -1,0 +1,58 @@
+﻿@using Grades.Domain.Entities
+@model IEnumerable<Subject>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subject List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row pt-4 pb-4">
+            <div class="col-4">
+                <h2 class="text-primary">
+                    Subject List
+                </h2>
+            </div>
+            <div class="col-2 text-end">
+                <a asp-area="Faculty" asp-controller="Subject" asp-action="Upsert" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Create Subject
+                </a>
+            </div>
+        </div>
+        <ul>
+            <ul>
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <div class="row">
+                                <div class="col-3">
+                                    <a asp-area="Faculty" asp-controller="Subject" asp-action="Upsert" asp-route-id="@item.Id" class="custom-link">@item.Name</a>
+                                </div>
+                                <div class="col-3">
+                                    <a asp-controller="Subject" asp-action="DeleteSubject" asp-route-id="@item.Id" class="btn btn-danger border form-control">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </ul>
+        </ul>
+    </div>
+</body>
+</html>
+
+<style>
+    .custom-link {
+        color: black;
+        text-decoration: none; 
+        transition: color 0.3s; 
+    }
+
+    .custom-link:hover {
+         color: blue; 
+     }
+</style>

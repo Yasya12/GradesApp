@@ -1,0 +1,56 @@
+﻿@using Grades.Domain.Entities.ViewModels
+@model GroupVM
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Group.Id" hidden />
+    <div class="border p-3 mt-4 col-6 mx-auto">
+        <div class="row pb-2 ">
+            <h2 class="text-primary">@(Model.Group.Id != Guid.Empty ? "Update" : "Create")</h2>
+            <hr />
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Group.GroupCode" class="p-0">GroupCode</label>
+            <textarea asp-for="Group.GroupCode" class="form-control"></textarea>
+            <span asp-validation-for="Group.GroupCode" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Group.SubgroupNumber" class="p-0">SubgroupNumber</label>
+            <textarea asp-for="Group.SubgroupNumber" class="form-control"></textarea>
+            <span asp-validation-for="Group.SubgroupNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Group.AdmissionYear" class="p-0">AdmissionYear</label>
+            <textarea asp-for="Group.AdmissionYear" class="form-control"></textarea>
+            <span asp-validation-for="Group.AdmissionYear" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Group.SpecialtyId" class="p-0"></label>
+            <select asp-for="Group.SpecialtyId" asp-items="@Model.SpecialtyList" class="form-select">
+                <option disabled selected>--SelectOrganization--</option>
+            </select>
+            <span asp-validation-for="Group.SpecialtyId" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6 col-md-3">
+                @if (Model.Group.Id != Guid.Empty)
+                {
+                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                }
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Group" asp-action="GetAllGroup" class="btn btn-secondary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
