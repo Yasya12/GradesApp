@@ -1,4 +1,8 @@
-﻿using Grades.Application.Features.SemesterFeatures.Queries;
+﻿using Grades.Application.Features.GroupFeatures.Commands.DeleteGroupCommand;
+using Grades.Application.Features.GroupFeatures.Commands.SaveGroupCommand;
+using Grades.Application.Features.GroupFeatures.Queries.GetAllGroupQuery;
+using Grades.Application.Features.GroupFeatures.Queries.GetGroupQuery;
+using Grades.Application.Features.SemesterFeatures.Queries;
 using Grades.Application.Features.UserFeatures.Commands.CreateUserCommand;
 using Grades.Application.Features.UserFeatures.Commands.DeleteUserCommand;
 using Grades.Application.Features.UserFeatures.Commands.SaveUserCommand;
@@ -89,7 +93,16 @@ namespace GradesApp.Areas.Admin.Controllers
             }
         }
 
-        public async Task<IActionResult> DeleteFaculty(Guid? id)
+        #region API CALLS
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var userList = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
+            return Json(new { data = userList });
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -108,13 +121,13 @@ namespace GradesApp.Areas.Admin.Controllers
                 await _mediator.Send(new DeleteUserCommand(userToBeDeleted));
                 await _mediator.Send(new SaveUserCommand());
 
-                return RedirectToAction("GetAllFaculties"); 
+                return Json(new { success = true, message = "Faculty files deleted" });
             }
             catch (Exception ex)
             {
-                // Log the exception
                 return StatusCode(500, "Internal server error");
             }
         }
+        #endregion
     }
 }

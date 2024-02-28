@@ -5,6 +5,10 @@ using Grades.Application.Features.GroupFeatures.Commands.UpdateGroupCommand;
 using Grades.Application.Features.GroupFeatures.Queries.GetAllGroupQuery;
 using Grades.Application.Features.GroupFeatures.Queries.GetGroupQuery;
 using Grades.Application.Features.SpecialtyFeatures.Queries.GetAllSpecialtyQuery;
+using Grades.Application.Features.SubjectFeatures.Commands.DeleteSubjectCommand;
+using Grades.Application.Features.SubjectFeatures.Commands.SaveSubjectCommand;
+using Grades.Application.Features.SubjectFeatures.Queries.GetAllSubjectQuery;
+using Grades.Application.Features.SubjectFeatures.Queries.GetSubjectQuery;
 using Grades.Domain.Entities;
 using Grades.Domain.Entities.ViewModels;
 using MediatR;
@@ -67,12 +71,12 @@ namespace GradesApp.Areas.Faculty.Controllers
                 if (groupVM.Group.Id == Guid.Empty)
                 {
                     await _mediator.Send<Group>(new CreateGroupCommand(groupVM.Group));
-                    TempData["success"] = "Faculty created successfully";
+                    TempData["success"] = "Group created successfully";
                 }
                 else
                 {
                     await _mediator.Send<Group>(new UpdateGroupCommand(groupVM.Group));
-                    TempData["success"] = "Faculty update successfully";
+                    TempData["success"] = "Group update successfully";
                 }
 
                 await _mediator.Send(new SaveGroupCommand());
@@ -90,7 +94,16 @@ namespace GradesApp.Areas.Faculty.Controllers
             }
         }
 
-        public async Task<IActionResult> DeleteGroup(Guid? id)
+        #region API CALLS
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var groupList = await _mediator.Send(new GetAllGroupQuery() { includeProperties = "Specialty" });
+            return Json(new { data = groupList });
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -109,13 +122,15 @@ namespace GradesApp.Areas.Faculty.Controllers
                 await _mediator.Send(new DeleteGroupCommand(groupToBeDeleted));
                 await _mediator.Send(new SaveGroupCommand());
 
-                return RedirectToAction("GetAllGroup");
+                return Json(new { success = true, message = "Complaint and related files deleted" });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        #endregion
     }
 }
 

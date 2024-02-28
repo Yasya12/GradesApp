@@ -61,6 +61,25 @@ app.MapRazorPages();
     name: "areaRoute",
     pattern: "{area:exists}/{controller=Home}/{action=GetAll}/{id?}");*/
 
+/*app.MapControllerRoute(
+    name: "default",
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");*/
+/*app.Use(async (context, next) =>
+{
+    if (context.User.IsInRole(SD.Role_Faculty))
+    {
+        context.GetRouteData().Values["area"] = "Faculty";
+    }
+
+    else if (context.User.IsInRole(SD.Role_Admin))
+    {
+        context.GetRouteData().Values["area"] = "Admin";
+    }
+
+    await next();
+});
+
+app.UseRouting();*/
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");

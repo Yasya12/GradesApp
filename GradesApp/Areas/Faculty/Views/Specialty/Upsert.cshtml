@@ -1,4 +1,4 @@
-﻿@model Subject
+﻿@model Specialty
 
 <form method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4 col-6 mx-auto">
@@ -13,14 +13,9 @@
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3 row p-1">
-            <label asp-for="Abbreviation" class="p-0">Abbreviation</label>
-            <textarea asp-for="Abbreviation" class="form-control"></textarea>
-            <span asp-validation-for="Abbreviation" class="text-danger"></span>
-        </div>
-        <div class="mb-3 row p-1">
-            <label asp-for="Lecturer" class="p-0">Lecturer</label>
-            <textarea asp-for="Lecturer" class="form-control"></textarea>
-            <span asp-validation-for="Lecturer" class="text-danger"></span>
+            <label asp-for="Code" class="p-0">Code</label>
+            <textarea asp-for="Code" class="form-control"></textarea>
+            <span asp-validation-for="Code" class="text-danger"></span>
         </div>
 
         <div class="row">
@@ -35,7 +30,7 @@
                 }
             </div>
             <div class="col-6 col-md-3">
-                <a asp-controller="Home" asp-action="GetAllSubject" class="btn btn-secondary border form-control">
+                <a asp-controller="Home" asp-action="GetAllSpecialty" class="btn btn-secondary border form-control">
                     Back to List
                 </a>
             </div>

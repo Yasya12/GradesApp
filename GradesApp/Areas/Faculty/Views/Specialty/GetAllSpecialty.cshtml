@@ -1,16 +1,16 @@
 ﻿@using Grades.Domain.Entities
-@model IEnumerable<Group>
+@model IEnumerable<Specialty>
 
 <div class="container">
     <div class="row pt-4 pb-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Group List
+                Speciality List
             </h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-area="Faculty" asp-controller="Group" asp-action="Upsert" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Create Group
+            <a asp-area="Faculty" asp-controller="Specialty" asp-action="Upsert" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Create Speciality
             </a>
 
         </div>
@@ -19,13 +19,10 @@
         <thead>
             <tr>
                 <th>
-                    GroupName
+                    Name
                 </th>
                 <th>
-                    Specialty
-                </th>
-                <th>
-                    AdmissionYear
+                    Code
                 </th>
                 <th>
 
@@ -39,6 +36,6 @@
     @{
         var randomParam = new Random().Next(10000);
     }
-    <script src="~/js/faculty/group/group.js?cache=@randomParam"></script>
+    <script src="~/js/faculty/specialty/specialty.js?cache=@randomParam"></script>
 }
 
