@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grades.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240227011049_InitFaculty2")]
-    partial class InitFaculty2
+    [Migration("20240301143651_grade")]
+    partial class grade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,16 +110,16 @@ namespace Grades.Persistence.Migrations
                             Id = "49b754b0-8831-4b1a-a44f-8e18a0c2578e",
                             Abbreviation = "A",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5cabbe1d-01b9-4a43-8f46-d6661b2062a0",
+                            ConcurrencyStamp = "89f89d6a-6073-4e2b-9fcf-4d9f5378907b",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMbVhC9q+eJwulMepHSiHRtwAePm21xBerJAb+7lGt/H8YiR6MdI2++PHd6dECVgdA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO0vhHWZJBwIRHAQ/0yWxGt+iaoUXc0K1uLxt70bli4ZDv20HABFUl+OHTZAEELAmQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8af9605c-07d5-4a8c-a68b-86d6a8943c3f",
+                            SecurityStamp = "eea19680-06a3-47e9-88cc-ec07f8481fa3",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -128,16 +128,16 @@ namespace Grades.Persistence.Migrations
                             Id = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
                             Abbreviation = "EC",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ddda02ed-230c-4a5f-8ab0-c4e4d06260b8",
+                            ConcurrencyStamp = "b90ae517-7bd9-4333-a9bd-75bbebb7fd65",
                             Email = "economy@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Economy Faculty",
                             NormalizedEmail = "ECONOMY@GMAIL.COM",
                             NormalizedUserName = "ECONOMY@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELMzqY7dn9kYwrSCgTLUqc6WDQ1UAxpQAWZtgeo57XpIcrNSvZXqlsEL19EOpK+hvg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHCsrJ+CJqrjIpe5YNlAeNQLw0kwdkwEhbC4mw7ct422MgGb+rywozbUdZ1rGiCuHg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c8e7094-8aad-4304-ac46-b42b9887925f",
+                            SecurityStamp = "f9c1fde4-7f06-4530-b563-5b60b8c95c62",
                             TwoFactorEnabled = false,
                             UserName = "economy@gmail.com"
                         },
@@ -146,16 +146,16 @@ namespace Grades.Persistence.Migrations
                             Id = "7e7b3d2d-9a90-4f90-aa5f-2c33d830cf45",
                             Abbreviation = "LF",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90bf3aa0-3933-4e59-8d5e-f86cac37a8e0",
+                            ConcurrencyStamp = "46460def-d10e-4893-9b83-e4c399863e00",
                             Email = "law@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Law Faculty",
                             NormalizedEmail = "LAW@GMAIL.COM",
                             NormalizedUserName = "LAW@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHBT1H+mYLqiKteoTIGnbSOAkP6dHcNSwRsOQCOYFuXObR2YLC3vxqfkGzwISSEK5w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHlN2OnVr6p8Cip7MgsD2XMEbBfx1Sy39KGnXdF3jTbPCrAQ2Ok4AyZndwnVYFHSFQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1eae1b2f-4dee-4e84-86a9-09d676f2602c",
+                            SecurityStamp = "b7e74266-0dd5-43a1-8a73-6f9346bbca03",
                             TwoFactorEnabled = false,
                             UserName = "law@gmail.com"
                         },
@@ -164,16 +164,16 @@ namespace Grades.Persistence.Migrations
                             Id = "c8b05623-d42b-4a9f-947e-dcd54538ee1d",
                             Abbreviation = "U",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0dcfb0cf-3a08-4621-817c-9e458ff83278",
+                            ConcurrencyStamp = "55b4af70-7d4f-4df9-bf4c-9e48d74330c1",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "User",
                             NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "USER@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKhIQy1vDyT59VtK4TdYAOXaSfxILE2sdVhst+2lJWwbOmiZKg0IabByWtOiOjegaw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELt9Xr0zXlLxPkhulTUqYl3BYKC3JXl+yyT+h9YN9rPcF2Ch7zn0Ty86pj4MP8tYlQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "06f424cd-6ec8-4f54-84ca-427da05e59ff",
+                            SecurityStamp = "78597025-b02a-41a3-9765-69c3460f5935",
                             TwoFactorEnabled = false,
                             UserName = "user@gmail.com"
                         });
@@ -203,14 +203,14 @@ namespace Grades.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dbd59de2-3bc1-4bd7-a0af-46bfedc5f0dc"),
+                            Id = new Guid("7d26e99c-9c1b-420c-b561-5e4bc34c8add"),
                             Abbreviation = "F1",
                             DefaultValue = false,
                             Name = "Faculty 1"
                         },
                         new
                         {
-                            Id = new Guid("c221ac94-157f-4ee1-b053-4bf9f0b0067a"),
+                            Id = new Guid("f2dd857c-30e3-4362-8cbf-5faf4f84e9df"),
                             Abbreviation = "F2",
                             DefaultValue = false,
                             Name = "Faculty 2"
@@ -253,7 +253,7 @@ namespace Grades.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("67583a96-d014-4b7e-b7e7-423ce0c489cc"),
+                            Id = new Guid("2d78dc28-25c1-4e52-a08d-5a78a8f81c5d"),
                             AdmissionYear = 2021,
                             DefaultValue = false,
                             FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
@@ -263,7 +263,7 @@ namespace Grades.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("384c3d4d-ecc5-4d5a-96cd-fce5f241c8dd"),
+                            Id = new Guid("69f6d9a2-3a21-48f0-aa59-2bc982b367c3"),
                             AdmissionYear = 2020,
                             DefaultValue = false,
                             FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
@@ -273,7 +273,7 @@ namespace Grades.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cce0212b-fbaf-4c87-8c46-3f476576256a"),
+                            Id = new Guid("4c09d510-2ef3-417a-b36a-41b82d39b159"),
                             AdmissionYear = 2022,
                             DefaultValue = false,
                             FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
@@ -336,6 +336,69 @@ namespace Grades.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Grades.Domain.Entities.Student", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("AverageGrade")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("DefaultValue")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Grades")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SpecialtyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("Student");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e25c7423-5a53-4c27-81d0-917b5e10b8e7"),
+                            AverageGrade = 0f,
+                            DefaultValue = false,
+                            Grades = "[89,100]",
+                            GroupId = new Guid("2d78dc28-25c1-4e52-a08d-5a78a8f81c5d"),
+                            LastName = "Лайтер",
+                            Name = "Ярина",
+                            SpecialtyId = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc")
+                        },
+                        new
+                        {
+                            Id = new Guid("fbcbb0a9-85e0-45a3-93c8-b1a057e4f062"),
+                            AverageGrade = 0f,
+                            DefaultValue = false,
+                            Grades = "[79,95]",
+                            GroupId = new Guid("69f6d9a2-3a21-48f0-aa59-2bc982b367c3"),
+                            LastName = "Пильпака",
+                            Name = "Альона",
+                            SpecialtyId = new Guid("aee59fc8-92f4-4bb7-a0a7-4f812f74a4c2")
+                        });
+                });
+
             modelBuilder.Entity("Grades.Domain.Entities.Subject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -360,47 +423,92 @@ namespace Grades.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FacultyId");
-
-                    b.HasIndex("SpecialtyId");
 
                     b.ToTable("Subject");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("35e62777-dc20-402c-b9d6-82a300d645c4"),
+                            Id = new Guid("a9e449e0-d8a1-4bfa-8dc5-3ec0d8b9a68d"),
                             Abbreviation = "ПР",
                             DefaultValue = false,
                             FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
                             Lecturer = "Клебан Ю.В.",
-                            Name = "Програмування на С#",
-                            SpecialtyId = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc")
+                            Name = "Програмування на С#"
                         },
                         new
                         {
-                            Id = new Guid("172e5a52-df51-4fb0-b062-bd2864185d8e"),
+                            Id = new Guid("7b96a6c2-8469-4d58-a3f0-bbb1aef4907c"),
                             Abbreviation = "БД",
                             DefaultValue = false,
                             FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
                             Lecturer = "Коцюк Ю.А.",
-                            Name = "Бази Даних",
-                            SpecialtyId = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc")
+                            Name = "Бази Даних"
                         },
                         new
                         {
-                            Id = new Guid("2050ae9f-d8dc-4f30-ae8d-d153cda3e44d"),
+                            Id = new Guid("dc57160e-d37e-4d81-a048-245106c4854b"),
                             Abbreviation = "АД",
                             DefaultValue = false,
                             FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d",
                             Lecturer = "Жуковський В.В.",
-                            Name = "Алгоритми даних",
-                            SpecialtyId = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc")
+                            Name = "Алгоритми даних"
+                        });
+                });
+
+            modelBuilder.Entity("Grades.Domain.Entities.SubjectStudent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("DefaultValue")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("Grade")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("SubjectStudent");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11da4969-0c08-4e87-b694-31d71e8aa32b"),
+                            DefaultValue = false,
+                            Grade = 89f,
+                            StudentId = new Guid("e25c7423-5a53-4c27-81d0-917b5e10b8e7"),
+                            SubjectId = new Guid("a9e449e0-d8a1-4bfa-8dc5-3ec0d8b9a68d")
+                        },
+                        new
+                        {
+                            Id = new Guid("f3e4b0b0-2f0d-43d4-b4ee-623de6ce7ae4"),
+                            DefaultValue = false,
+                            Grade = 100f,
+                            StudentId = new Guid("e25c7423-5a53-4c27-81d0-917b5e10b8e7"),
+                            SubjectId = new Guid("7b96a6c2-8469-4d58-a3f0-bbb1aef4907c")
+                        },
+                        new
+                        {
+                            Id = new Guid("d502f5b4-cf9d-46c7-ba58-5ebeb79537b1"),
+                            DefaultValue = false,
+                            Grade = 96f,
+                            StudentId = new Guid("fbcbb0a9-85e0-45a3-93c8-b1a057e4f062"),
+                            SubjectId = new Guid("dc57160e-d37e-4d81-a048-245106c4854b")
                         });
                 });
 
@@ -426,14 +534,14 @@ namespace Grades.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a90adf2d-7c5d-4300-b5dc-2735bd84654e"),
+                            Id = new Guid("073d98da-c2cf-40e0-9277-17e1e7e0009a"),
                             DefaultValue = false,
                             Number = 1,
                             StartYear = 2022
                         },
                         new
                         {
-                            Id = new Guid("0e8e3daa-c991-4762-992b-3c836b91f196"),
+                            Id = new Guid("4921af78-66ea-4d41-a029-e494aee3d10b"),
                             DefaultValue = false,
                             Number = 2,
                             StartYear = 2022
@@ -470,21 +578,21 @@ namespace Grades.Persistence.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "024af808-9b34-4839-85b6-adda7b042ac4",
+                            ConcurrencyStamp = "0f403f76-052b-4d39-a098-fc3f8f6f74c8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "d8021dcd-e854-4618-a11a-2dd00450899f",
+                            ConcurrencyStamp = "b9e87728-db6a-4cdb-bbd4-acead77ec023",
                             Name = "Faculty",
                             NormalizedName = "FACULTY"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "bdcb3ed4-f0db-4fd9-8585-cbd4707219bf",
+                            ConcurrencyStamp = "0719e8b7-b000-43f0-b4d3-e6752407ae2e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -644,21 +752,51 @@ namespace Grades.Persistence.Migrations
                     b.Navigation("Faculty");
                 });
 
+            modelBuilder.Entity("Grades.Domain.Entities.Student", b =>
+                {
+                    b.HasOne("Grades.Domain.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Grades.Domain.Entities.Specialty", "Specialty")
+                        .WithMany()
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Specialty");
+                });
+
             modelBuilder.Entity("Grades.Domain.Entities.Subject", b =>
                 {
                     b.HasOne("Grades.Domain.Entities.ApplicationUser", "Faculty")
                         .WithMany()
                         .HasForeignKey("FacultyId");
 
-                    b.HasOne("Grades.Domain.Entities.Specialty", "Specialty")
-                        .WithMany()
-                        .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("Grades.Domain.Entities.SubjectStudent", b =>
+                {
+                    b.HasOne("Grades.Domain.Entities.Student", "Student")
+                        .WithMany("SubjectStudents")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Faculty");
+                    b.HasOne("Grades.Domain.Entities.Subject", "Subject")
+                        .WithMany("SubjectStudents")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Specialty");
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -710,6 +848,16 @@ namespace Grades.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Grades.Domain.Entities.Student", b =>
+                {
+                    b.Navigation("SubjectStudents");
+                });
+
+            modelBuilder.Entity("Grades.Domain.Entities.Subject", b =>
+                {
+                    b.Navigation("SubjectStudents");
                 });
 #pragma warning restore 612, 618
         }

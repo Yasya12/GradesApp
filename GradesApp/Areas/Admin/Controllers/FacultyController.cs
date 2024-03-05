@@ -35,8 +35,11 @@ namespace GradesApp.Areas.Admin.Controllers
 
         public async Task<IActionResult> GetAllFaculties()
         {
-            var userList = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
-            return View(userList);
+            var usersWithRoles = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
+            var faculties = usersWithRoles.Where(u => _userManager.IsInRoleAsync(u, "Faculty").Result);
+
+            return View(faculties);
+
         }
 
         public async Task<IActionResult> Upsert(string? id)
@@ -97,8 +100,9 @@ namespace GradesApp.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var userList = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
-            return Json(new { data = userList });
+            var usersWithRoles = await _mediator.Send<IEnumerable<ApplicationUser>>(new GetAllUserQuery());
+            var faculties = usersWithRoles.Where(u => _userManager.IsInRoleAsync(u, "Faculty").Result);
+            return Json(new { data = faculties });
         }
 
         [HttpDelete]

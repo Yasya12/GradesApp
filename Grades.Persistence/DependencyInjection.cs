@@ -21,6 +21,7 @@ namespace Grades.Persistence
             services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
             /*services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();*/

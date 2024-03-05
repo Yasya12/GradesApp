@@ -1,0 +1,46 @@
+﻿@using Grades.Domain.Entities
+@model IEnumerable<Group>
+
+<div class="container">
+    <div class="row pt-4 pb-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Choose a Group
+            </h2>
+        </div>
+    </div>
+    <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    GroupName
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var group in Model)
+            {
+                <tr>
+                    <td>@group.GroupName</td>
+                    <td>
+                        <a href="/admin/student/getallstudents?id=@group.Id" class="btn btn-primary mx-2">
+                            <i class="bi bi-pencil-square"></i> Показати список студентів
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* @section Scripts {
+    @{
+        var randomParam = new Random().Next(10000);
+    }
+    <script src="~/js/admin/student/group.js?cache=@randomParam"></script>
+}
+ *@

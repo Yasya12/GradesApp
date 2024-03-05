@@ -1,0 +1,42 @@
+﻿@model ApplicationUser
+
+<form method="post" enctype="multipart/form-data">
+    <div class="border p-3 mt-4 col-6 mx-auto">
+        <div class="row pb-2 ">
+            <h2 class="text-primary">@(Model.Id != null ? "Update" : "Create")</h2>
+            <hr />
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Name" class="p-0">Name</label>
+            <textarea asp-for="Name" class="form-control"></textarea>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Abbreviation" class="p-0">Abbreviation</label>
+            <textarea asp-for="Abbreviation" class="form-control"></textarea>
+            <span asp-validation-for="Abbreviation" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-3">
+                @if (Model.Id != null)
+                {
+                    <button type="submit" class="btn btn-primary form-control">Update</button>   
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                }                
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Faculty" asp-action="GetAllFaculties" class="btn btn-secondary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

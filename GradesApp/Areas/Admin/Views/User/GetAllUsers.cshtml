@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Linq
+@using Microsoft.EntityFrameworkCore
+@model IEnumerable<ApplicationUser>
+
+@{
+    var _userManager = ViewBag.UserManager as UserManager<ApplicationUser>;
+    var _roleManager = ViewBag.RoleManager as RoleManager<IdentityRole>;
+}
+
+<div class="container">
+    <div class="row pt-4 pb-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                User List
+            </h2>
+        </div>
+    </div>
+    <form method="post" action="/admin/user/SaveChanges">
+        <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>
+                            @{
+                                var roles = await _userManager.GetRolesAsync(user);
+                                var allRoles = await _roleManager.Roles.ToListAsync();
+                                var dropdownId = user.Id; 
+                            }
+                            <select id="@dropdownId" name="@dropdownId">
+                                <option value="@roles.FirstOrDefault()" selected>@roles.FirstOrDefault()</option> 
+                                @foreach (var role in allRoles)
+                                {
+                                    if (!roles.Contains(role.Name))
+                                    {
+                                        <option value="@role.Name">@role.Name</option> 
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button> 
+    </form>
+</div>
+

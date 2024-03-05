@@ -10,8 +10,9 @@ namespace Grades.Domain.Entities
 {
     public class Subject: BaseFacultity
     {
-        public string Name { get; set; } 
-        public string Abbreviation { get; set; } 
+        public string Name { get; set; }
+        public string Abbreviation { get; set; }
         public string Lecturer { get; set; }
+        public ICollection<SubjectStudent> SubjectStudents { get; set; }
     }
 }

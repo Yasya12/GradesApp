@@ -19,6 +19,8 @@ namespace Grades.Persistence.Context
         public DbSet<Specialty> Specialty { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Subject> Subject { get; set; }
+        public DbSet<Student> Student { get; set; }
+        public DbSet<SubjectStudent> SubjectStudent { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -132,7 +134,7 @@ namespace Grades.Persistence.Context
             modelBuilder.Entity<Group>().HasData(
                 new Group
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("2d78dc28-25c1-4e52-a08d-5a78a8f81c5d"),
                     GroupCode = "КН",
                     SubgroupNumber = 1,
                     AdmissionYear = 2021,
@@ -141,7 +143,7 @@ namespace Grades.Persistence.Context
                 },
                 new Group
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("69f6d9a2-3a21-48f0-aa59-2bc982b367c3"),
                     GroupCode = "ЕК",
                     SubgroupNumber = 2,
                     AdmissionYear = 2020,
@@ -150,7 +152,7 @@ namespace Grades.Persistence.Context
                 },
                 new Group
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("4c09d510-2ef3-417a-b36a-41b82d39b159"),
                     GroupCode = "КН",
                     SubgroupNumber = 2,
                     AdmissionYear = 2022,
@@ -160,10 +162,38 @@ namespace Grades.Persistence.Context
             );
 
             modelBuilder.Entity<Subject>().HasData(
-                new Subject { Id = Guid.NewGuid(), Name = "Програмування на С#", Abbreviation = "ПР", Lecturer = "Клебан Ю.В.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
-                new Subject { Id = Guid.NewGuid(), Name = "Бази Даних", Abbreviation = "БД", Lecturer = "Коцюк Ю.А.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
-                new Subject { Id = Guid.NewGuid(), Name = "Алгоритми даних", Abbreviation = "АД", Lecturer = "Жуковський В.В.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" }
+                new Subject { Id = new Guid("a9e449e0-d8a1-4bfa-8dc5-3ec0d8b9a68d"), Name = "Програмування на С#", Abbreviation = "ПР", Lecturer = "Клебан Ю.В.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
+                new Subject { Id = new Guid("7b96a6c2-8469-4d58-a3f0-bbb1aef4907c"), Name = "Бази Даних", Abbreviation = "БД", Lecturer = "Коцюк Ю.А.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" },
+                new Subject { Id = new Guid("dc57160e-d37e-4d81-a048-245106c4854b"), Name = "Алгоритми даних", Abbreviation = "АД", Lecturer = "Жуковський В.В.", FacultyId = "edb4f3c1-cf69-4b07-aafb-915d6d58f23d" }
             );
+
+            modelBuilder.Entity<Student>().HasData(
+                new Student
+                {
+                    Id = new Guid("e25c7423-5a53-4c27-81d0-917b5e10b8e7"),
+                    Name = "Ярина",
+                    LastName = "Лайтер",
+                    SpecialtyId = new Guid("e0d30663-5fc2-4aa4-bd12-9f325db791dc"),
+                    GroupId = new Guid("2d78dc28-25c1-4e52-a08d-5a78a8f81c5d"),
+                    Grades = new List<float> { 89.00f, 100.00f }
+                },
+                new Student
+                {
+                    Id = new Guid("fbcbb0a9-85e0-45a3-93c8-b1a057e4f062"),
+                    Name = "Альона",
+                    LastName = "Пильпака",
+                    SpecialtyId = new Guid("aee59fc8-92f4-4bb7-a0a7-4f812f74a4c2"),
+                    GroupId = new Guid("69f6d9a2-3a21-48f0-aa59-2bc982b367c3"),
+                    Grades = new List<float> { 79.00f, 95.00f }
+                }
+            );
+
+            modelBuilder.Entity<SubjectStudent>().HasData(
+                new SubjectStudent { Id = Guid.NewGuid(), SubjectId = new Guid("a9e449e0-d8a1-4bfa-8dc5-3ec0d8b9a68d"), StudentId = new Guid("e25c7423-5a53-4c27-81d0-917b5e10b8e7"), Grade = 89.00f },
+                new SubjectStudent { Id = Guid.NewGuid(), SubjectId = new Guid("7b96a6c2-8469-4d58-a3f0-bbb1aef4907c"), StudentId = new Guid("e25c7423-5a53-4c27-81d0-917b5e10b8e7"), Grade = 100.00f },
+                new SubjectStudent { Id = Guid.NewGuid(), SubjectId = new Guid("dc57160e-d37e-4d81-a048-245106c4854b"), StudentId = new Guid("fbcbb0a9-85e0-45a3-93c8-b1a057e4f062"), Grade = 96.00f }
+            );
+
 
         }
     }

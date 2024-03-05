@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Student>
+
+<div class="container">
+    <div class="row pt-4 pb-4">
+        <div class="col-12">
+            <h6 class="text-black">
+                <a href="/admin/student/getallgroup" class="text-decoration-none text-black">
+                    Group
+                </a>
+                 -> Students
+            </h6>
+        </div>
+    </div>
+    <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                @if (Model.Any())
+                {
+                    foreach (var subjectStudent in Model.First().SubjectStudents)
+                    {
+                        <th>@subjectStudent.Subject.Name</th>
+                    }
+                }
+                <th>
+                    Average Grade
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>@student.LastName</td>
+                    @foreach (var subjectStudent in student.SubjectStudents)
+                    {
+                        <th>@(subjectStudent.Grade)</th>
+                        if (subjectStudent.Grade == null || subjectStudent.Grade == 0)
+                        {
+                            <th></th>
+                        }
+                    }
+                    <td>@student.AverageGrade</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
