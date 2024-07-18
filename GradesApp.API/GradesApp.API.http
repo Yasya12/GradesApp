@@ -1,0 +1,6 @@
+@GradesApp.API_HostAddress = http://localhost:5197
+
+GET {{GradesApp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

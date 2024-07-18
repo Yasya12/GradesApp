@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesApp.Domain", "GradesApp.Domain\GradesApp.Domain.csproj", "{A1AEAE67-C2A6-48E6-96DA-A777D66A675B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesApp.API", "GradesApp.API\GradesApp.API.csproj", "{FE3B2303-CC22-4EDE-B0E5-446C0659CC5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1AEAE67-C2A6-48E6-96DA-A777D66A675B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1AEAE67-C2A6-48E6-96DA-A777D66A675B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1AEAE67-C2A6-48E6-96DA-A777D66A675B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AEAE67-C2A6-48E6-96DA-A777D66A675B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE3B2303-CC22-4EDE-B0E5-446C0659CC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE3B2303-CC22-4EDE-B0E5-446C0659CC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE3B2303-CC22-4EDE-B0E5-446C0659CC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3B2303-CC22-4EDE-B0E5-446C0659CC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
