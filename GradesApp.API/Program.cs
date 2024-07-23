@@ -1,8 +1,12 @@
+using GradesApp.Infrastructure.Data;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container.   
+builder.Services.AddDbContext<GradesAppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers(); // Додайте це
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
