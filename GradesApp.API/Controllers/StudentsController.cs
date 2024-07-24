@@ -61,7 +61,6 @@ public class StudentsController : ControllerBase
         }
 
         existingStudent.FullName = student.FullName;
-        existingStudent.Email = student.Email;
         existingStudent.Year = student.Year;
         existingStudent.Speciality = student.Speciality;
 

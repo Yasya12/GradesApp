@@ -7,32 +7,68 @@ public static class ModelBuilderExtensions
 {
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        //LIMITATION FOR THE PROPERTY
+        //LIMITATION 
         modelBuilder.Entity<Student>(entity =>
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.FullName).IsRequired();
-            entity.Property(e => e.Email).IsRequired();
-            entity.HasIndex(e => e.Email).IsUnique();
         });
         
-        //creating data
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Username).IsRequired();
+            entity.Property(e => e.Email).IsRequired();
+        });
+        
+        // CONNECTION
+        modelBuilder.Entity<Student>()
+            .HasOne(s => s.User)
+            .WithOne(u => u.Student)
+            .HasForeignKey<Student>(s => s.UserId);
+        
+        //urer connect only with one student 
+        modelBuilder.Entity<Student>()
+            .HasIndex(s => s.UserId)
+            .IsUnique();
+        
+        //CRWATING
+        var user1 = new User
+        {
+            Id = Guid.NewGuid(),
+            Username = "john_doe",
+            Email = "john@example.com",
+            PasswordHash = PasswordHasher.HashPassword("securepass456"), 
+            Role = "Student"
+        };
+
+        var user2 = new User
+        {
+            Id = Guid.NewGuid(),
+            Username = "jane_smith",
+            Email = "jane@example.com",
+            PasswordHash = PasswordHasher.HashPassword("password123"),
+            Role = "Student"
+        };
+
+        modelBuilder.Entity<User>().HasData(user1, user2);
+        
         modelBuilder.Entity<Student>().HasData(
             new Student
             {
                 Id = Guid.NewGuid(),
                 FullName = "John Doe",
-                Email = "john@example.com",
                 Year = 2,
-                Speciality = "Computer Science"
+                Speciality = "Computer Science",
+                UserId = user1.Id
             },
             new Student
             {
                 Id = Guid.NewGuid(),
                 FullName = "Jane Smith",
-                Email = "jane@example.com",
                 Year = 3,
-                Speciality = "Mathematics"
+                Speciality = "Mathematics",
+                UserId = user2.Id
             }
         );
     }
