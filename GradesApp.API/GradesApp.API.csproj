@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GradesApp.Application\GradesApp.Application.csproj" />
       <ProjectReference Include="..\GradesApp.Domain\GradesApp.Domain.csproj" />
       <ProjectReference Include="..\GradesApp.Infrastructure\GradesApp.Infrastructure.csproj" />
     </ItemGroup>
