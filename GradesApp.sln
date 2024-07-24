@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54995117-2EB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesApp.Infrastructure", "GradesApp.Infrastructure\GradesApp.Infrastructure.csproj", "{C2B8BDF0-AEB8-417A-BD65-9B258414A0EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesApp.Application", "GradesApp.Application\GradesApp.Application.csproj", "{E90F35EF-D663-442C-A1E8-D1B4AFE0D5DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,10 +28,15 @@ Global
 		{C2B8BDF0-AEB8-417A-BD65-9B258414A0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2B8BDF0-AEB8-417A-BD65-9B258414A0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2B8BDF0-AEB8-417A-BD65-9B258414A0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90F35EF-D663-442C-A1E8-D1B4AFE0D5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90F35EF-D663-442C-A1E8-D1B4AFE0D5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90F35EF-D663-442C-A1E8-D1B4AFE0D5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90F35EF-D663-442C-A1E8-D1B4AFE0D5DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FE3B2303-CC22-4EDE-B0E5-446C0659CC5E} = {54995117-2EBB-43B7-A2EF-F3E160DD6581}
 		{A1AEAE67-C2A6-48E6-96DA-A777D66A675B} = {54995117-2EBB-43B7-A2EF-F3E160DD6581}
 		{C2B8BDF0-AEB8-417A-BD65-9B258414A0EB} = {54995117-2EBB-43B7-A2EF-F3E160DD6581}
+		{E90F35EF-D663-442C-A1E8-D1B4AFE0D5DC} = {54995117-2EBB-43B7-A2EF-F3E160DD6581}
 	EndGlobalSection
 EndGlobal

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace GradesApp.Domain.Entities;
 
 public class User
@@ -8,5 +10,6 @@ public class User
     public string PasswordHash { get; set; }
     public string Role { get; set; }
     
+    [JsonIgnore]
     public virtual Student Student { get; set; }
 }
