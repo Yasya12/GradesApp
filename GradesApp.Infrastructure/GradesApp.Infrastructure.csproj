@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
         <PrivateAssets>all</PrivateAssets>
@@ -21,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GradesApp.Common\GradesApp.Common.csproj" />
       <ProjectReference Include="..\GradesApp.Domain\GradesApp.Domain.csproj" />
     </ItemGroup>
 
