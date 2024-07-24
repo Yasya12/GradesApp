@@ -53,7 +53,7 @@ namespace GradesApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("28393252-1ff9-48ff-8a11-c574797b71e0"),
+                            Id = new Guid("eaee8826-4462-4966-9a39-6dbcbd371c9e"),
                             Email = "john@example.com",
                             FullName = "John Doe",
                             Speciality = "Computer Science",
@@ -61,7 +61,7 @@ namespace GradesApp.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("76c14f2f-0ec6-41a4-a6a4-22b137d817e0"),
+                            Id = new Guid("53b75ce3-6579-40e6-9154-6f89358d588b"),
                             Email = "jane@example.com",
                             FullName = "Jane Smith",
                             Speciality = "Mathematics",

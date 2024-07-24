@@ -33,8 +33,8 @@ namespace GradesApp.Infrastructure.Migrations
                 columns: new[] { "Id", "Email", "FullName", "Speciality", "Year" },
                 values: new object[,]
                 {
-                    { new Guid("28393252-1ff9-48ff-8a11-c574797b71e0"), "john@example.com", "John Doe", "Computer Science", 2 },
-                    { new Guid("76c14f2f-0ec6-41a4-a6a4-22b137d817e0"), "jane@example.com", "Jane Smith", "Mathematics", 3 }
+                    { new Guid("53b75ce3-6579-40e6-9154-6f89358d588b"), "jane@example.com", "Jane Smith", "Mathematics", 3 },
+                    { new Guid("eaee8826-4462-4966-9a39-6dbcbd371c9e"), "john@example.com", "John Doe", "Computer Science", 2 }
                 });
 
             migrationBuilder.CreateIndex(

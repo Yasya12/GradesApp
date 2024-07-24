@@ -18,20 +18,22 @@ public static class ModelBuilderExtensions
         
         //creating data
         modelBuilder.Entity<Student>().HasData(
-            new Student(
-                Id: Guid.NewGuid(),
-                FullName: "John Doe",
-                Email: "john@example.com",
-                Year: 2,
-                Speciality: "Computer Science"
-            ),
-            new Student(
-                Id: Guid.NewGuid(),
-                FullName: "Jane Smith",
-                Email: "jane@example.com",
-                Year: 3,
-                Speciality: "Mathematics"
-            )
+            new Student
+            {
+                Id = Guid.NewGuid(),
+                FullName = "John Doe",
+                Email = "john@example.com",
+                Year = 2,
+                Speciality = "Computer Science"
+            },
+            new Student
+            {
+                Id = Guid.NewGuid(),
+                FullName = "Jane Smith",
+                Email = "jane@example.com",
+                Year = 3,
+                Speciality = "Mathematics"
+            }
         );
     }
 }

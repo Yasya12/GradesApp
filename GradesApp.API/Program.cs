@@ -1,4 +1,7 @@
+using GradesApp.Domain.Interfaces.Repositories;
 using GradesApp.Infrastructure.Data;
+using GradesApp.Infrastructure.DependencyInjection;
+using GradesApp.Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.   
 builder.Services.AddDbContext<GradesAppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddControllers(); // Додайте це
+builder.Services.AddInfrastructure();
+
+builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
