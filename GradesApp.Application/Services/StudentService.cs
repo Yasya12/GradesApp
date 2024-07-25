@@ -22,7 +22,7 @@ public class StudentService : IStudentService
     {
         var user = new User
         {
-            Username = dto.Username,
+            Username = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}",
             Email = dto.Email,
             PasswordHash = PasswordHasher.HashPassword(dto.Password),
             Role = "Student"
@@ -32,9 +32,12 @@ public class StudentService : IStudentService
 
         var student = new Student
         {
-            FullName = dto.FullName,
-            Year = dto.Year,
-            Speciality = dto.Speciality,
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            DateOfBirth = dto.DateOfBirth,
+            StudentNumber = dto.StudentNumber,
+            SpecialityId = dto.SpecialityId,
+            EnrollmentDate = dto.EnrollmentDate,
             UserId = user.Id
         };
 
@@ -50,9 +53,12 @@ public class StudentService : IStudentService
             throw new NotFoundException($"Student with id {dto.Id} not found");
         }
 
-        student.FullName = dto.FullName;
-        student.Year = dto.Year;
-        student.Speciality = dto.Speciality;
+        student.FirstName = dto.FirstName;
+        student.LastName = dto.LastName;
+        student.DateOfBirth = dto.DateOfBirth;
+        student.StudentNumber = dto.StudentNumber;
+        student.SpecialityId = dto.SpecialityId;
+        student.EnrollmentDate = dto.EnrollmentDate;
 
         await _studentRepository.UpdateAsync(student);
 
@@ -62,7 +68,7 @@ public class StudentService : IStudentService
             throw new NotFoundException($"User associated with student id {dto.Id} not found");
         }
 
-        user.Username = dto.Username;
+        user.Username = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}";
         user.Email = dto.Email;
 
         await _userRepository.UpdateAsync(user);
@@ -75,7 +81,7 @@ public class StudentService : IStudentService
         var student = await _studentRepository.GetByIdAsync(id);
         if (student == null)
         {
-            throw new ArgumentException("Student not found.");
+            throw new NotFoundException($"Student with id {id} not found");
         }
 
         await _studentRepository.DeleteAsync(id);
