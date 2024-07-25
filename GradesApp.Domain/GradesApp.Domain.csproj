@@ -10,4 +10,8 @@
       <ProjectReference Include="..\GradesApp.Common\GradesApp.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.7" />
+    </ItemGroup>
+
 </Project>

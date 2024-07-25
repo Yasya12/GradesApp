@@ -1,9 +1,11 @@
 using GradesApp.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GradesApp.Infrastructure.Data;
 
-public class GradesAppDbContext : DbContext
+public class GradesAppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     public DbSet<Student> Students { get; set; }
     public DbSet<User> Users { get; set; }

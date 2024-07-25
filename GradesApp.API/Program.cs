@@ -1,7 +1,9 @@
+using GradesApp.Domain.Entities;
 using GradesApp.Domain.Interfaces.Repositories;
 using GradesApp.Infrastructure.Data;
 using GradesApp.Infrastructure.DependencyInjection;
 using GradesApp.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<GradesAppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddInfrastructure();
+
+// Identity
+builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<GradesAppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();

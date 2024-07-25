@@ -22,7 +22,7 @@ public class StudentService : IStudentService
     {
         var user = new User
         {
-            Username = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}",
+            UserName = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}",
             Email = dto.Email,
             PasswordHash = PasswordHasher.HashPassword(dto.Password),
             Role = "Student"
@@ -70,7 +70,7 @@ public class StudentService : IStudentService
             throw new NotFoundException($"User associated with student id {dto.Id} not found");
         }
 
-        user.Username = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}";
+        user.UserName = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}";
         user.Email = dto.Email;
 
         await _userRepository.UpdateAsync(user);

@@ -11,7 +11,7 @@ public static class ModelBuilderExtensions
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Username).IsRequired();
+            entity.Property(e => e.UserName).IsRequired();
             entity.Property(e => e.Email).IsRequired();
             entity.Property(e => e.PasswordHash).IsRequired();
             entity.Property(e => e.Role).IsRequired();
@@ -120,7 +120,7 @@ public static class ModelBuilderExtensions
         var user1 = new User
         {
             Id = user1Id,
-            Username = "john_doe",
+            UserName = "john_doe",
             Email = "john@example.com",
             PasswordHash = PasswordHasher.HashPassword("securepass456"), 
             Role = "Student"
@@ -129,7 +129,7 @@ public static class ModelBuilderExtensions
         var user2 = new User
         {
             Id = user2Id,
-            Username = "jane_smith",
+            UserName = "jane_smith",
             Email = "jane@example.com",
             PasswordHash = PasswordHasher.HashPassword("password123"),
             Role = "Student"

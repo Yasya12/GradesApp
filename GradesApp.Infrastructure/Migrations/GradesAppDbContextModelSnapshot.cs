@@ -46,7 +46,7 @@ namespace GradesApp.Infrastructure.Migrations
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("GradesApp.Domain.Entities.Faculty", b =>
@@ -64,12 +64,12 @@ namespace GradesApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculty");
+                    b.ToTable("Faculties");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("eaa3d334-382e-4989-a049-db2ad27131d7"),
+                            Id = new Guid("55b558e6-af91-4360-a58f-f49ed5e3d336"),
                             Name = "Faculty of Science"
                         });
                 });
@@ -98,7 +98,7 @@ namespace GradesApp.Infrastructure.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Grade");
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("GradesApp.Domain.Entities.Group", b =>
@@ -121,21 +121,21 @@ namespace GradesApp.Infrastructure.Migrations
 
                     b.HasIndex("SpecialityId");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cd41be8e-be64-4979-a658-fe9be7a586f6"),
+                            Id = new Guid("5af9eb69-8b37-4ffe-a247-4e6571dbd642"),
                             Name = "CS-2",
-                            SpecialityId = new Guid("cc17ea1b-a4fc-4d55-9f78-02120a2bdbd6"),
+                            SpecialityId = new Guid("0502e896-11ce-4033-9506-e09b9fe46b84"),
                             Year = 2
                         },
                         new
                         {
-                            Id = new Guid("1a266c5b-8b13-4c29-8d02-a279684ef7e2"),
+                            Id = new Guid("1a753c4d-af5f-474c-82d0-76c5a16e1b8b"),
                             Name = "MATH-3",
-                            SpecialityId = new Guid("f421e6c2-c529-4c38-90f5-c2e6bea905be"),
+                            SpecialityId = new Guid("8703d2e3-a562-45ae-b244-c1ce57f8ebc6"),
                             Year = 3
                         });
                 });
@@ -158,7 +158,7 @@ namespace GradesApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Semester");
+                    b.ToTable("Semesters");
                 });
 
             modelBuilder.Entity("GradesApp.Domain.Entities.Speciality", b =>
@@ -182,21 +182,21 @@ namespace GradesApp.Infrastructure.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("Speciality");
+                    b.ToTable("Specialities");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cc17ea1b-a4fc-4d55-9f78-02120a2bdbd6"),
+                            Id = new Guid("0502e896-11ce-4033-9506-e09b9fe46b84"),
                             Code = "CS",
-                            FacultyId = new Guid("eaa3d334-382e-4989-a049-db2ad27131d7"),
+                            FacultyId = new Guid("55b558e6-af91-4360-a58f-f49ed5e3d336"),
                             Name = "Computer Science"
                         },
                         new
                         {
-                            Id = new Guid("f421e6c2-c529-4c38-90f5-c2e6bea905be"),
+                            Id = new Guid("8703d2e3-a562-45ae-b244-c1ce57f8ebc6"),
                             Code = "MATH",
-                            FacultyId = new Guid("eaa3d334-382e-4989-a049-db2ad27131d7"),
+                            FacultyId = new Guid("55b558e6-af91-4360-a58f-f49ed5e3d336"),
                             Name = "Mathematics"
                         });
                 });
@@ -248,27 +248,27 @@ namespace GradesApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("71bb2e72-f9ee-4c49-8235-e5f67d026426"),
+                            Id = new Guid("ac42f5ec-2581-4103-8e2b-544194ce0638"),
                             DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EnrollmentDate = new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             FirstName = "John",
-                            GroupId = new Guid("cd41be8e-be64-4979-a658-fe9be7a586f6"),
+                            GroupId = new Guid("5af9eb69-8b37-4ffe-a247-4e6571dbd642"),
                             LastName = "Doe",
-                            SpecialityId = new Guid("cc17ea1b-a4fc-4d55-9f78-02120a2bdbd6"),
+                            SpecialityId = new Guid("0502e896-11ce-4033-9506-e09b9fe46b84"),
                             StudentNumber = "CS001",
-                            UserId = new Guid("c4223075-bcba-47e1-8fd0-12bd5fb96cd1")
+                            UserId = new Guid("22e4cbe8-c6ce-432d-a163-4723c49a3ca7")
                         },
                         new
                         {
-                            Id = new Guid("f725d6a7-5fb1-42b2-b2c2-38016854644c"),
+                            Id = new Guid("a2dad6de-03cb-467f-b074-6c2b5479cfec"),
                             DateOfBirth = new DateTime(1999, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             EnrollmentDate = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             FirstName = "Jane",
-                            GroupId = new Guid("1a266c5b-8b13-4c29-8d02-a279684ef7e2"),
+                            GroupId = new Guid("1a753c4d-af5f-474c-82d0-76c5a16e1b8b"),
                             LastName = "Smith",
-                            SpecialityId = new Guid("f421e6c2-c529-4c38-90f5-c2e6bea905be"),
+                            SpecialityId = new Guid("8703d2e3-a562-45ae-b244-c1ce57f8ebc6"),
                             StudentNumber = "MATH001",
-                            UserId = new Guid("07149b74-47a8-431f-8d79-82000215bd49")
+                            UserId = new Guid("d2fe71be-f7dd-4162-b481-613e498c0144")
                         });
                 });
 
@@ -278,51 +278,238 @@ namespace GradesApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
+                    b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c4223075-bcba-47e1-8fd0-12bd5fb96cd1"),
+                            Id = new Guid("22e4cbe8-c6ce-432d-a163-4723c49a3ca7"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "863d0862-e679-407c-b52d-780b3b24b6c1",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john@example.com",
-                            PasswordHash = "$2a$11$9baz8IRe6VFTDE9KWlXpwOcD5wsxt1QZjjFVI2hWHtrbxsAzOVs/K",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "$2a$11$bvCitt8psp5dKcf51kFfwug73BLt8D78HoNbkyTlB4BaKZ.oyMJBG",
+                            PhoneNumberConfirmed = false,
                             Role = "Student",
-                            Username = "john_doe"
+                            TwoFactorEnabled = false,
+                            UserName = "john_doe"
                         },
                         new
                         {
-                            Id = new Guid("07149b74-47a8-431f-8d79-82000215bd49"),
+                            Id = new Guid("d2fe71be-f7dd-4162-b481-613e498c0144"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1b95ce59-4a15-4479-8f8a-c24cd741d346",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane@example.com",
-                            PasswordHash = "$2a$11$pMfWK9MxeTY11Z17f.Jg9OVtRMQYC5gGyzaOijL.0hY2tordtiOnC",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "$2a$11$VqOxn6oTV0T6WRcF/0VEDuyKa0PoCCKMbj35yI8EeEGQ2TakwGoW.",
+                            PhoneNumberConfirmed = false,
                             Role = "Student",
-                            Username = "jane_smith"
+                            TwoFactorEnabled = false,
+                            UserName = "jane_smith"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("GradesApp.Domain.Entities.Course", b =>
@@ -402,6 +589,57 @@ namespace GradesApp.Infrastructure.Migrations
                     b.Navigation("Speciality");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("GradesApp.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("GradesApp.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GradesApp.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("GradesApp.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GradesApp.Domain.Entities.Course", b =>
