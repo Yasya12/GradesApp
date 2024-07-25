@@ -8,6 +8,7 @@ public class UpdateStudentDto
     public DateTime DateOfBirth { get; set; }
     public string StudentNumber { get; set; }
     public Guid SpecialityId { get; set; }  
+    public Guid GroupId { get; set; }
     public DateTime EnrollmentDate { get; set; }
         
     // User properties

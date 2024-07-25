@@ -6,7 +6,8 @@ public class CreateStudentDto
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string StudentNumber { get; set; }
-    public Guid SpecialityId { get; set; }  
+    public Guid SpecialityId { get; set; }
+    public Guid GroupId { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
     public DateTime EnrollmentDate { get; set; }

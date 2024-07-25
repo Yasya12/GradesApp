@@ -37,6 +37,7 @@ public class StudentService : IStudentService
             DateOfBirth = dto.DateOfBirth,
             StudentNumber = dto.StudentNumber,
             SpecialityId = dto.SpecialityId,
+            GroupId = dto.GroupId,
             EnrollmentDate = dto.EnrollmentDate,
             UserId = user.Id
         };
@@ -58,6 +59,7 @@ public class StudentService : IStudentService
         student.DateOfBirth = dto.DateOfBirth;
         student.StudentNumber = dto.StudentNumber;
         student.SpecialityId = dto.SpecialityId;
+        student.GroupId = dto.GroupId;
         student.EnrollmentDate = dto.EnrollmentDate;
 
         await _studentRepository.UpdateAsync(student);
