@@ -9,7 +9,6 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public string Role { get; set; }
-    
-    [JsonIgnore]
-    public virtual Student Student { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? LastLogin { get; set; }
 }
