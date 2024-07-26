@@ -1,4 +1,5 @@
 using AutoMapper;
+using GradesApp.Application.Mappings;
 using YourProject.Infrastructure.Mapping;
 
 namespace GradesApp.Infrastructure.Mapping;
@@ -10,6 +11,7 @@ public class AutoMapperConfig
         return new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<UserMappingProfile>();
+            cfg.AddProfile<StudentMapperProfile>();
         });
     }
 }
