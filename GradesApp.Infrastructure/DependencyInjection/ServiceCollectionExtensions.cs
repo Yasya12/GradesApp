@@ -8,6 +8,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddApplicationServices();
         services.AddRepositories();
+        services.AddAutoMapper();
         return services;
     }
     
