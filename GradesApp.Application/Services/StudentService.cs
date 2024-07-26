@@ -1,9 +1,9 @@
+using AutoMapper;
 using GradesApp.Application.Dtos;
 using GradesApp.Common.Exceptions;
 using GradesApp.Domain.Entities;
 using GradesApp.Domain.Interfaces.Repositories;
 using GradesApp.Domain.Interfaces.Services;
-using GradesApp.Infrastructure.Data;
 
 namespace GradesApp.Application.Services;
 
@@ -11,40 +11,43 @@ public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IUserRepository _userRepository;
+    protected readonly IMapper _mapper;
 
-    public StudentService(IStudentRepository studentRepository, IUserRepository userRepository)
+    public StudentService(IStudentRepository studentRepository, IUserRepository userRepository,  IMapper mapper)
     {
         _studentRepository = studentRepository;
         _userRepository = userRepository;
+        _mapper = mapper;
     }
-
-    public async Task<Student> CreateStudentAsync(CreateStudentDto dto)
+    
+    public async Task<IEnumerable<StudentResponseDto>> GetAllStudentsAsync()
     {
-        var user = new User
-        {
-            UserName = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}",
-            Email = dto.Email,
-            PasswordHash = PasswordHasher.HashPassword(dto.Password),
-            Role = "Student"
-        };
-
-        await _userRepository.AddAsync(user);
-
-        var student = new Student
-        {
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            DateOfBirth = dto.DateOfBirth,
-            StudentNumber = dto.StudentNumber,
-            SpecialityId = dto.SpecialityId,
-            GroupId = dto.GroupId,
-            EnrollmentDate = dto.EnrollmentDate,
-            UserId = user.Id
-        };
-
-        await _studentRepository.AddAsync(student);
-        return student;  
+        var students = await _studentRepository.GetAllAsync();
+        return _mapper.Map<IEnumerable<StudentResponseDto>>(students);
     }
+    
+    public async Task<StudentResponseDto> GetStudentByIdAsync(Guid id)
+    {
+        var student = await _studentRepository.GetByIdAsync(id);
+       return _mapper.Map<StudentResponseDto>(student);
+    }
+
+
+    public async Task<(StudentResponseDto, Guid)> CreateStudentAsync(CreateStudentDto dto)
+    {
+        var user = _mapper.Map<User>(dto);
+        await _userRepository.AddAsync(user);
+    
+        var student = _mapper.Map<Student>(dto);
+        student.UserId = user.Id;
+        await _studentRepository.AddAsync(student);
+
+        student = await _studentRepository.GetByIdWithDetailsAsync(student.Id);
+
+        var responseDto = _mapper.Map<StudentResponseDto>(student);
+        return (responseDto, student.Id);
+    }
+
     
     public async Task<Student> UpdateStudentAsync(UpdateStudentDto dto)
     {
@@ -53,15 +56,8 @@ public class StudentService : IStudentService
         {
             throw new NotFoundException($"Student with id {dto.Id} not found");
         }
-
-        student.FirstName = dto.FirstName;
-        student.LastName = dto.LastName;
-        student.DateOfBirth = dto.DateOfBirth;
-        student.StudentNumber = dto.StudentNumber;
-        student.SpecialityId = dto.SpecialityId;
-        student.GroupId = dto.GroupId;
-        student.EnrollmentDate = dto.EnrollmentDate;
-
+        
+        _mapper.Map(dto, student);
         await _studentRepository.UpdateAsync(student);
 
         var user = await _userRepository.GetByIdAsync(student.UserId);
@@ -69,12 +65,10 @@ public class StudentService : IStudentService
         {
             throw new NotFoundException($"User associated with student id {dto.Id} not found");
         }
-
-        user.UserName = $"{dto.FirstName.ToLower()}_{dto.LastName.ToLower()}";
-        user.Email = dto.Email;
-
+        
+        _mapper.Map<User>(dto);
         await _userRepository.UpdateAsync(user);
-
+        
         return student;
     }
     
@@ -87,7 +81,6 @@ public class StudentService : IStudentService
         }
 
         await _studentRepository.DeleteAsync(id);
-
         await _userRepository.DeleteAsync(student.UserId);
     }
 }

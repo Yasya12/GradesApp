@@ -5,7 +5,9 @@ namespace GradesApp.Domain.Interfaces.Services;
 
 public interface IStudentService
 {
-    Task<Student> CreateStudentAsync(CreateStudentDto dto);
+    Task<IEnumerable<StudentResponseDto>> GetAllStudentsAsync();
+    Task<StudentResponseDto> GetStudentByIdAsync(Guid id);
+    Task<(StudentResponseDto, Guid)>  CreateStudentAsync(CreateStudentDto dto);
     Task<Student> UpdateStudentAsync(UpdateStudentDto dto);
     Task DeleteStudentAsync(Guid id);
 
