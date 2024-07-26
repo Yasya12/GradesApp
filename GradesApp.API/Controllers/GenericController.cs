@@ -1,3 +1,5 @@
+using AutoMapper;
+using GradesApp.Domain.Entities;
 using GradesApp.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,20 +7,34 @@ namespace GradesApp.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public abstract class GenericController<T> : ControllerBase where T : class
+public abstract class GenericController<TEntity, TDto> : ControllerBase
+    where TEntity : class
+    where TDto : class
 {
-    protected readonly IGenericRepository<T> _repository;
+    protected readonly IGenericRepository<TEntity> _repository;
+    protected readonly IMapper _mapper;
 
-    protected GenericController(IGenericRepository<T> repository)
+    protected GenericController(IGenericRepository<TEntity> repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
+    }
+    
+    protected  TEntity ConvertToEntity(TDto dto)
+    {
+        return _mapper.Map<TEntity>(dto);
+    }
+    protected TDto ConvertToDto(TEntity entity)
+    {
+        return _mapper.Map<TDto>(entity);
     }
 
     [HttpGet]
     public virtual async Task<IActionResult> GetAll()
     {
         var entities = await _repository.GetAllAsync();
-        return Ok(entities);
+        var dtos = entities.Select(ConvertToDto);
+        return Ok(dtos);
     }
 
     [HttpGet("{id:guid}")]
@@ -26,26 +42,33 @@ public abstract class GenericController<T> : ControllerBase where T : class
     {
         var entity = await _repository.GetByIdAsync(id);
         if (entity == null) return NotFound();
-        return Ok(entity);
+        var dto = ConvertToDto(entity);
+        return Ok(dto);
     }
 
     [HttpPost]
-    public virtual async Task<IActionResult> Add([FromBody] T entity)
+    public virtual async Task<IActionResult> Add([FromBody] TDto dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var entity = ConvertToEntity(dto);
+
         await _repository.AddAsync(entity);
-        return CreatedAtAction(nameof(GetById), new { id = (entity as dynamic).Id }, entity);
+        return NoContent();
     }
 
     [HttpPut("{id:guid}")]
-    public virtual async Task<IActionResult> Update(Guid id, [FromBody] T entity)
+    public virtual async Task<IActionResult> Update(Guid id, [FromBody] TDto dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
+
         var existingEntity = await _repository.GetByIdAsync(id);
         if (existingEntity == null)
         {
             return NotFound();
         }
+
+        var entity = ConvertToEntity(dto);
         await _repository.UpdateAsync(entity);
         return NoContent();
     }
