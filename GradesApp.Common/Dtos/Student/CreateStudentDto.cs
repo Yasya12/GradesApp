@@ -11,6 +11,5 @@ public class CreateStudentDto
     public string Email { get; set; }
     public string Password { get; set; }
     public DateTime EnrollmentDate { get; set; }
-    
-    public string Username => $"{FirstName.ToLower()}_{LastName.ToLower()}";
+    public string Username { get; set;  }
 }
