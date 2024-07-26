@@ -1,5 +1,4 @@
 using GradesApp.Application.Dtos;
-using GradesApp.Application.Services;
 using GradesApp.Common.Exceptions;
 using GradesApp.Domain.Interfaces.Repositories;
 using GradesApp.Domain.Interfaces.Services;
@@ -23,27 +22,30 @@ public class StudentsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var students = await _studentRepository.GetAllAsync();
+        var students = await _studentService.GetAllStudentsAsync();
         return Ok(students);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var student = await _studentRepository.GetByIdAsync(id);
-        if (student == null) return NotFound();
+        var student = await _studentService.GetStudentByIdAsync(id);
         return Ok(student);
+        // var student = await _studentRepository.GetByIdAsync(id);
+        // if (student == null) return NotFound();
+        // return Ok(student);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateStudentDto dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        
-        var createdStudent = await _studentService.CreateStudentAsync(dto);
     
-        return CreatedAtAction(nameof(GetById), new { id = createdStudent.Id }, createdStudent);
+        var (createdStudent, studentId) = await _studentService.CreateStudentAsync(dto);
+
+        return CreatedAtAction(nameof(GetById), new { id = studentId }, createdStudent);
     }
+
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateStudentDto dto)
