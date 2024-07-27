@@ -11,7 +11,7 @@ public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IUserRepository _userRepository;
-    protected readonly IMapper _mapper;
+    private readonly IMapper _mapper;
 
     public StudentService(IStudentRepository studentRepository, IUserRepository userRepository,  IMapper mapper)
     {
@@ -42,19 +42,20 @@ public class StudentService : IStudentService
         student.UserId = user.Id;
         await _studentRepository.AddAsync(student);
 
-        student = await _studentRepository.GetByIdWithDetailsAsync(student.Id);
+        //for including properties group + speciality, doesn`t include without it
+        student = await _studentRepository.GetByIdAsync(student.Id);
 
         var responseDto = _mapper.Map<StudentResponseDto>(student);
         return (responseDto, student.Id);
     }
 
     
-    public async Task<Student> UpdateStudentAsync(UpdateStudentDto dto)
+    public async Task<Student> UpdateStudentAsync(Guid Id, UpdateStudentDto dto)
     {
-        var student = await _studentRepository.GetByIdAsync(dto.Id);
+        var student = await _studentRepository.GetByIdAsync(Id);
         if (student == null)
         {
-            throw new NotFoundException($"Student with id {dto.Id} not found");
+            throw new NotFoundException($"Student with id {Id} not found");
         }
         
         _mapper.Map(dto, student);
@@ -63,10 +64,10 @@ public class StudentService : IStudentService
         var user = await _userRepository.GetByIdAsync(student.UserId);
         if (user == null)
         {
-            throw new NotFoundException($"User associated with student id {dto.Id} not found");
+            throw new NotFoundException($"User associated with student id {Id} not found");
         }
         
-        _mapper.Map<User>(dto);
+        _mapper.Map(dto, user);
         await _userRepository.UpdateAsync(user);
         
         return student;
