@@ -10,12 +10,10 @@ namespace GradesApp.API.Controllers;
 [Route("api/[controller]")]
 public class StudentsController : ControllerBase
 {
-    private readonly IStudentRepository _studentRepository;
     private readonly IStudentService _studentService;
 
-    public StudentsController(IStudentRepository repository, IStudentService studentService)
+    public StudentsController( IStudentService studentService)
     {
-        _studentRepository = repository;
         _studentService = studentService;
     }
 
@@ -31,9 +29,6 @@ public class StudentsController : ControllerBase
     {
         var student = await _studentService.GetStudentByIdAsync(id);
         return Ok(student);
-        // var student = await _studentRepository.GetByIdAsync(id);
-        // if (student == null) return NotFound();
-        // return Ok(student);
     }
 
     [HttpPost]
@@ -50,13 +45,13 @@ public class StudentsController : ControllerBase
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateStudentDto dto)
     {
-        if (id != dto.Id) return BadRequest("Id mismatch");
+        //if (id != dto.Id) return BadRequest("Id mismatch");
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         try
         {
-            var updatedStudent = await _studentService.UpdateStudentAsync(dto);
-            return Ok(updatedStudent);
+            var updatedStudent = await _studentService.UpdateStudentAsync(id, dto);
+            return NoContent();
         }
         catch (NotFoundException ex)
         {
