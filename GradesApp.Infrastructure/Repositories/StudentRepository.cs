@@ -8,36 +8,32 @@ namespace GradesApp.Infrastructure.Repositories;
 public class StudentRepository : GenericRepository<Student>, IStudentRepository
 {
     public StudentRepository(GradesAppDbContext context) : base(context) { }
-    
-    public override async Task<IEnumerable<Student>> GetAllAsync()
+
+    private IQueryable<Student> IncludeNavigationProperties(IQueryable<Student> query)
     {
-        return await _context.Students
+        return query
             .Include(s => s.User)
             .Include(s => s.Group)
             .Include(s => s.Speciality)
-            .Include(s => s.Grades)
+            .Include(s => s.Grades);
+    }
+    
+    public override async Task<IEnumerable<Student>> GetAllAsync()
+    {
+        return await IncludeNavigationProperties(_context.Students)
             .ToListAsync();
-        
     }
     
     public override async Task<Student> GetByIdAsync(Guid id)
     {
-        return await _dbSet
-            .Where(s => s.Id == id)
-            .Include(s => s.User)
-            .Include(s => s.Group)
-            .Include(s => s.Speciality)
-            .Include(s => s.Grades)
-            .FirstOrDefaultAsync();
-    }
-    
-    public async Task<Student> GetByIdWithDetailsAsync(Guid id)
-    {
-        return await _context.Students
-            .Include(s => s.User)
-            .Include(s => s.Group)
-            .Include(s => s.Speciality)
+        var student = await IncludeNavigationProperties(_dbSet)
             .FirstOrDefaultAsync(s => s.Id == id);
-    }
+        
+        if (student == null)
+        {
+            throw new KeyNotFoundException($"Student with ID {id} not found.");
+        }
     
+        return student;
+    }
 }
