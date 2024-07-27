@@ -19,6 +19,13 @@ namespace GradesApp.Application.Mappings
                 .ForMember(dest => dest.Group, opt => opt.Ignore())
                 .ForMember(dest => dest.Speciality, opt => opt.Ignore());
             
+            CreateMap<UpdateStudentDto, Student>()
+                .ForMember(dest => dest.User, opt => opt.Ignore())
+                .ForMember(dest => dest.Group, opt => opt.Ignore())
+                .ForMember(dest => dest.Speciality, opt => opt.Ignore())
+                .ForMember(dest => dest.UserId, opt => opt.Ignore())
+                .ForMember(dest => dest.Grades, opt => opt.Ignore());
+            
             CreateMap<CreateStudentDto, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => $"{src.FirstName.ToLower()}_{src.LastName.ToLower()}"))
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => PasswordHasher.HashPassword(src.Password)))
