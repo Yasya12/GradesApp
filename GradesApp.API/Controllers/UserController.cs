@@ -9,7 +9,7 @@ namespace GradesApp.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : GenericController<User, CreateUserDto>
+public class UserController : GenericController<User, CreateUserDto, CreateUserDto >
 {
     public UserController(IGenericRepository<User> repository, IMapper mapper) : base(repository, mapper)
     {

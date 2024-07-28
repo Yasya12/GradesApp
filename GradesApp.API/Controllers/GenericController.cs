@@ -7,7 +7,7 @@ namespace GradesApp.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public abstract class GenericController<TEntity, TDto> : ControllerBase
+public abstract class GenericController<TEntity, TDto, TResponseDto> : ControllerBase
     where TEntity : class
     where TDto : class
 {
@@ -28,12 +28,17 @@ public abstract class GenericController<TEntity, TDto> : ControllerBase
     {
         return _mapper.Map<TDto>(entity);
     }
+    
+    protected TResponseDto ConvertToResponseDto(TEntity entity)
+    {
+        return _mapper.Map<TResponseDto>(entity);
+    }
 
     [HttpGet]
     public virtual async Task<IActionResult> GetAll()
     {
         var entities = await _repository.GetAllAsync();
-        var dtos = entities.Select(ConvertToDto);
+        var dtos = entities.Select(ConvertToResponseDto);
         return Ok(dtos);
     }
 
@@ -42,7 +47,7 @@ public abstract class GenericController<TEntity, TDto> : ControllerBase
     {
         var entity = await _repository.GetByIdAsync(id);
         if (entity == null) return NotFound();
-        var dto = ConvertToDto(entity);
+        var dto = ConvertToResponseDto(entity);
         return Ok(dto);
     }
 
@@ -68,8 +73,9 @@ public abstract class GenericController<TEntity, TDto> : ControllerBase
             return NotFound();
         }
 
-        var entity = ConvertToEntity(dto);
-        await _repository.UpdateAsync(entity);
+        _mapper.Map(dto, existingEntity);
+        //var entity = ConvertToEntity(dto);
+        await _repository.UpdateAsync(existingEntity);
         return NoContent();
     }
 
