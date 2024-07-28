@@ -11,6 +11,8 @@ public static class RepositoryRegistration
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IStudentRepository, StudentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IFacultyRepository, FacultyRepository>();
+        services.AddScoped<ISpecialityRepository, SpecialityRepository>();
         return services;
     }
 }
