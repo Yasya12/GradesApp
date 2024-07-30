@@ -1,7 +1,9 @@
 using GradesApp.Application.Dtos;
+using GradesApp.Application.Identity;
 using GradesApp.Common.Exceptions;
 using GradesApp.Domain.Interfaces.Repositories;
 using GradesApp.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GradesApp.API.Controllers;
@@ -17,6 +19,7 @@ public class StudentsController : ControllerBase
         _studentService = studentService;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -59,9 +62,16 @@ public class StudentsController : ControllerBase
         }
     }
 
+    [Authorize(Policy = IdentityData.AdminUserPolicyName)]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
+        var adminClaim = User.FindFirst(IdentityData.AdminUserClaimName);
+        if (adminClaim == null || adminClaim.Value != "true")
+        {
+            return Forbid(); 
+        }
+
         try
         {
             await _studentService.DeleteStudentAsync(id);
