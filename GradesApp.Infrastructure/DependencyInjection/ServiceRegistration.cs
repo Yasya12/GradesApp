@@ -11,6 +11,7 @@ public static class ServiceRegistration
     {
         services.AddScoped<IStudentService, StudentService>();
         services.AddScoped<IFacultyService, FacultyService>();
+        services.AddScoped<IJwtService, JwtService>();
         return services;
     }
 }
