@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using GradesApp.Application.Identity;
-using GradesApp.Common.Dtos.Authentication;
+using GradesApp.Domain.Entities;
 using GradesApp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,16 +18,16 @@ public class JwtService : IJwtService
         _configuration = configuration;
     }
 
-    public string GenerateToken(LoginDto model)
+    public string GenerateToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, model.UserName),
-            new Claim(ClaimTypes.NameIdentifier, model.UserId),
-            new Claim(IdentityData.AdminUserClaimName, model.CustomClaims.admin.ToString().ToLower())
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(IdentityData.AdminUserClaimName, user.Role.ToLower() == "admin" ? "true" : "false")
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor
