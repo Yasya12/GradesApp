@@ -10,27 +10,25 @@ namespace GradesApp.API.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IJwtService _jwtService;
+    private readonly IUserService _userService;
 
-    public AuthController(IJwtService jwtService)
+    public AuthController(IJwtService jwtService, IUserService userService)
     {
         _jwtService = jwtService;
+        _userService = userService;
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginDto model)
+    public async Task<IActionResult> Login(LoginDto model)
     {
-        if (IsValidUser(model))
+        var user = await _userService.GetUserByCredentialsAsync(model.UserName, model.Password);
+    
+        if (user != null)
         {
-            var token = _jwtService.GenerateToken(model);
+            var token = _jwtService.GenerateToken(user);
             return Ok(new { token });
         }
 
         return Unauthorized();
-    }
-
-    private bool IsValidUser(LoginDto model)
-    {
-        // Implement credential validation
-        return true; 
     }
 }
