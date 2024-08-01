@@ -7,12 +7,16 @@ namespace GradesApp.Infrastructure.Repositories;
 
 public class UserRepository : GenericRepository<User>, IUserRepository
 {
-    public UserRepository(GradesAppDbContext context) : base(context) { }
+    private readonly GradesAppDbContext _context;
 
-    public async Task<User> GetByUserNameAsync(string userName)
+    public UserRepository(GradesAppDbContext context) : base(context) 
     {
-        return await _context.Users
-            .SingleOrDefaultAsync(u => u.UserName == userName);
+        _context = context;
     }
 
+    public async Task<User> GetUserBYEmailAsync(string userEmail)
+    {
+        return await _context.Users
+            .SingleOrDefaultAsync(u => u.Email == userEmail);
+    }
 }
