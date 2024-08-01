@@ -15,6 +15,7 @@ public static class ModelBuilderExtensions
             entity.Property(e => e.Email).IsRequired();
             entity.Property(e => e.PasswordHash).IsRequired();
             entity.Property(e => e.Role).IsRequired();
+            entity.HasIndex(e => e.Email).IsUnique();
         });
 
         // Student
