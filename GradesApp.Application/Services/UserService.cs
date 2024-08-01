@@ -1,27 +1,26 @@
 using AutoMapper;
-using GradesApp.Common.Dtos.Authentication;
+using GradesApp.Common.Dtos.User;
 using GradesApp.Domain.Entities;
 using GradesApp.Domain.Interfaces.Repositories;
 using GradesApp.Domain.Interfaces.Services;
 using GradesApp.Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace GradesApp.Application.Services;
-
-using Microsoft.AspNetCore.Identity;
 
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
+        _mapper = mapper;
     }
 
-    public async Task<User> GetUserByCredentialsAsync(string userName, string password)
+    public async Task<User> GetUserByCredentialsAsync(string userEmail, string password)
     {
-        var user = await _userRepository.GetByUserNameAsync(userName);
+        var user = await _userRepository.GetUserBYEmailAsync(userEmail);
         if (user == null)
         {
             return null; 
@@ -34,5 +33,19 @@ public class UserService : IUserService
         }
 
         return user;
+    }
+    
+    public async Task<(CreateUserDto, Guid)> CreateUserAsync(CreateUserDto createUserDto)
+    {
+        var existingUser = await _userRepository.GetUserBYEmailAsync(createUserDto.Email);
+        if (existingUser != null)
+        {
+            throw new ApplicationException("User with such email already exist.");
+        }
+
+        var user = _mapper.Map<User>(createUserDto);
+        await _userRepository.AddAsync(user);
+
+        return (_mapper.Map<CreateUserDto>(user), user.Id);
     }
 }
