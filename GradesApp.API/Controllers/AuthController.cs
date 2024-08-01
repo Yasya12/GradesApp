@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto model)
     {
-        var user = await _userService.GetUserByCredentialsAsync(model.UserName, model.Password);
+        var user = await _userService.GetUserByCredentialsAsync(model.Email, model.Password);
     
         if (user != null)
         {
