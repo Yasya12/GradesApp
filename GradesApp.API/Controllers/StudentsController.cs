@@ -38,10 +38,16 @@ public class StudentsController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateStudentDto dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-    
-        var (createdStudent, studentId) = await _studentService.CreateStudentAsync(dto);
-
-        return CreatedAtAction(nameof(GetById), new { id = studentId }, createdStudent);
+        
+        try
+        {
+            var (createdStudent, studentId) = await _studentService.CreateStudentAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = studentId }, createdStudent);
+        }
+        catch (ApplicationException ex)
+        {
+            return Conflict(ex.Message);
+        }
     }
 
 
