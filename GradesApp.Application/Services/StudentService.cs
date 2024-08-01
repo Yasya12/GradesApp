@@ -36,6 +36,11 @@ public class StudentService : IStudentService
     public async Task<(StudentResponseDto, Guid)> CreateStudentAsync(CreateStudentDto dto)
     {
         var user = _mapper.Map<User>(dto);
+        var existingUser = await _userRepository.GetUserBYEmailAsync(user.Email);
+        if (existingUser != null)
+        {
+            throw new ApplicationException("User with such email already exist.");
+        }
         await _userRepository.AddAsync(user);
     
         var student = _mapper.Map<Student>(dto);
