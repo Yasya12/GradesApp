@@ -1,8 +1,8 @@
 using AutoMapper;
-using GradesApp.Application.Dtos;
 using GradesApp.Common.Dtos.User;
 using GradesApp.Domain.Entities;
 using GradesApp.Domain.Interfaces.Repositories;
+using GradesApp.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GradesApp.API.Controllers;
@@ -11,8 +11,27 @@ namespace GradesApp.API.Controllers;
 [Route("api/[controller]")]
 public class UserController : GenericController<User, CreateUserDto, CreateUserDto >
 {
-    public UserController(IGenericRepository<User> repository, IMapper mapper) : base(repository, mapper)
+    private readonly IUserService _userService;
+    public UserController(IGenericRepository<User> repository, IMapper mapper, IUserService userService) : base(repository, mapper)
     {
+        _userService = userService;
+    }
+    
+    [HttpPost]
+    public override async Task<IActionResult> Add([FromBody] CreateUserDto createUserDto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
+        {
+            var (createdUser, userId) = await _userService.CreateUserAsync(createUserDto);
+            return CreatedAtAction(nameof(GetById), new { id = userId }, createdUser);
+        }
+        catch (ApplicationException ex)
+        {
+            return Conflict(ex.Message);
+        }
     }
 
     [HttpPut("{id:guid}")]
